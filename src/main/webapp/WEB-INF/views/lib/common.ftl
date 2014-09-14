@@ -1,10 +1,11 @@
 <#macro page>
   <html>
   <head>
+    <link href="resources/css/main.css" rel="stylesheet" type="text/css"/ >
     <title>LMS</title>
   </head>
   <body>
-  
+ 
     <#-- This processes the enclosed content:  -->
     <#nested>
   </body>
