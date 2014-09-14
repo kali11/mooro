@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 class IndexController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model){
-	return "helloworld";
+        model.addAttribute("MsTime", System.currentTimeMillis());
+        return "index";
     }
-
 }

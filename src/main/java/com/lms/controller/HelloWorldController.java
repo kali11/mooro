@@ -1,5 +1,7 @@
 package com.lms.controller;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +19,7 @@ public class HelloWorldController {
 
     @RequestMapping("/hello")
     public String hello(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
-
-        model.addAttribute("name", userDao.getUser(1).getLogin());
+        model.addAttribute("name", "kali1");
         return "helloworld";
     }
 }

@@ -1,0 +1,7 @@
+<config>
+	<context-values>
+	</context-values>
+	<macro-library>
+		<entry namespace="index" path="src/main/webapp/WEB-INF/views/index.ftl" project="lms-platform" type="file"/>
+	</macro-library>
+</config>
