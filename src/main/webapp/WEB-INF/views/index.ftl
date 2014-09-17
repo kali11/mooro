@@ -1,6 +1,21 @@
 <@common.page>
-    Specific page content 1234
-  
-  <#-- Just another example of using a macro: -->
-  <@common.otherExample p1=11 p2=22 />
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Witaj na pltaformie E-learningowej!</h1>
+      <form role="form" action="" method="POST">
+        <div class="form-group">
+          <label for="login">Login</label>
+          <input class="form-control" id="login" name="login" placeholder="Login">
+        </div>
+        <div class="form-group">
+          <label for="password">Hasło</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Hasło">
+        </div>
+        <button type="submit" class="btn btn-success">Zaloguj</button>
+      </form>
+      ${q!"piotr"}
+      ${(login)!"login"}
+      ${(password)!"xxx"}
+    </div>
+  </div>
 </@common.page> 

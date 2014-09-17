@@ -39,6 +39,7 @@ public class Config extends WebMvcConfigurerAdapter {
         resolver.setCache(false);
         resolver.setPrefix("");
         resolver.setSuffix(".ftl");
+        resolver.setContentType("text/html; charset=utf-8");
         return resolver;
     }
 
@@ -56,6 +57,7 @@ public class Config extends WebMvcConfigurerAdapter {
                 setProperty("template_update_delay", env.getProperty("template_update_delay"));
                 setProperty("auto_import", env.getProperty("auto_import"));
                 setProperty("default_encoding", env.getProperty("default_encoding"));
+                setProperty("output_encoding", env.getProperty("output_encoding"));
             }
         };
     }

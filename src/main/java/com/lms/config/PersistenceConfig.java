@@ -17,9 +17,6 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.lms.model.dao.UserDao;
-import com.lms.model.dao.impl.UserDaoImpl;
-
 @Configuration
 @EnableTransactionManagement
 @PropertySource({ "classpath:application.properties" })
@@ -31,11 +28,6 @@ public class PersistenceConfig {
 
     public PersistenceConfig() {
         super();
-    }
-
-    @Bean
-    public UserDao userDao() {
-        return new UserDaoImpl();
     }
 
     @Bean
