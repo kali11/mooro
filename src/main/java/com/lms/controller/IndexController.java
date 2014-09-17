@@ -7,16 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lms.model.dao.UserDao;
-import com.lms.model.entity.User;
-import com.lms.utils.PasswordService;
+import com.lms.service.UserService;
 
 @Controller
 @RequestMapping("/")
 class IndexController {
 
     @Autowired
-    UserDao userDao;
+    UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
@@ -29,13 +27,10 @@ class IndexController {
             @RequestParam("login") String login,
             @RequestParam("password") String password) {
 
-        String encryptedPassword = PasswordService.encryptSHA(password);
-        User user = userDao.getUser(login);
-        if (user != null && user.getPassword().equals(encryptedPassword)) {
-            return "index";
-        } else {
-            model.addAttribute("password", user.getPassword());
-            return "index";
+        Boolean logged = userService.loginUser(login, password);
+        if (!logged) {
+            model.addAttribute("login", "kupabalda");
         }
+        return "index";
     }
 }
