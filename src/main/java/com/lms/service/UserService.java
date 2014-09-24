@@ -1,7 +1,12 @@
 package com.lms.service;
 
-public interface UserService {
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-    public Boolean loginUser(String login, String password);
+public interface UserService extends UserDetailsService {
+
+    @Override
+    public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException;
 
 }

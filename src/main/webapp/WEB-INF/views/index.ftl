@@ -12,10 +12,8 @@
           <input type="password" class="form-control" id="password" name="password" placeholder="Hasło">
         </div>
         <button type="submit" class="btn btn-success">Zaloguj</button>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       </form>
-      ${q!"piotr"}
-      ${(login)!"login"}
-      ${(password)!"xxx"}
     </div>
   </div>
 </@common.page> 

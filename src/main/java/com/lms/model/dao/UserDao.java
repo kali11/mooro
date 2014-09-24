@@ -5,4 +5,6 @@ import com.lms.model.entity.User;
 
 public interface UserDao extends GenericDAO<User, Integer> {
 
+    public User getByLogin(String login);
+
 }

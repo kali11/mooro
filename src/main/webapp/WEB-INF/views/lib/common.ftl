@@ -19,7 +19,16 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">Platforma E-learningowa</a>
+          <#if username??>
+            ${username}
+            <form method="POST" action="logout">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <button type="submit" class="btn btn-success">Wyloguj</button>
+            </form>
+          </#if>
         </div>
+        
+        
       </div>
     </div>
     

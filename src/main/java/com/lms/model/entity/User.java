@@ -1,17 +1,20 @@
 package com.lms.model.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable{
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -23,6 +26,13 @@ public class User implements Serializable{
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
+
+    @ManyToOne
+    @JoinColumn(name = "role", nullable = false)
+    private Role role;
 
     public Integer getId() {
         return id;
@@ -46,5 +56,21 @@ public class User implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
