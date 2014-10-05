@@ -8,7 +8,7 @@ import com.lms.model.dao.generic.LmsGenericDaoImpl;
 import com.lms.model.entity.User;
 
 @Repository
-public class UserDaoImpl extends LmsGenericDaoImpl<User, Integer> implements UserDao {
+public class UserDaoImpl extends LmsGenericDaoImpl<User, Long> implements UserDao {
 
     @Override
     public User getByLogin(String login) {

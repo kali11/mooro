@@ -10,23 +10,23 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.lms.service.UserService;
+import com.lms.service.UserSecurityService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    UserService userService;
+    UserSecurityService userSecurityService;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/home/**")
-        .access("hasRole('user')").and().formLogin()
+        .access("hasRole('admin')").and().formLogin()
         .loginPage("/").failureUrl("/?error").defaultSuccessUrl("/home")
         .usernameParameter("login")
         .passwordParameter("password")

@@ -2,7 +2,7 @@
   <div class="jumbotron">
     <div class="container">
       courses
-      ${test!"kupa"}
+      ${test!"kupaqw"}
     </div>
   </div>
 </@common.page> 

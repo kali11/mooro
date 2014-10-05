@@ -3,9 +3,9 @@
   <html>
   <head>
     <meta charset="UTF-8">
-    <link href="resources/css/main.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="webjars/bootstrap/3.2.0/css/bootstrap.min.css" />
-    <script src="webjars/jquery/2.1.1/jquery.min.js"></script>
+    <link href="<@spring.url '/resources/css/main.css' />" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="<@spring.url '/webjars/bootstrap/3.2.0/css/bootstrap.min.css' />" />
+    <script src="<@spring.url '/webjars/jquery/2.1.1/jquery.min.js' />"></script>
     <title>LMS</title>
   </head>
   <body>
@@ -19,16 +19,20 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">Platforma E-learningowa</a>
+        </div>
+        <div class="navbar-collapse collapse">
           <#if username??>
-            ${username}
-            <form method="POST" action="logout">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                <button type="submit" class="btn btn-success">Wyloguj</button>
+            <form class="navbar-form navbar-right" method="POST" action="<@spring.url '/logout'/>">
+                <div class="form-group">
+                <div class="username">${username}</div>
+                </div
+                <div class="form-group">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <button type="submit" class="btn btn-success">Wyloguj</button>
+                </div>
             </form>
           </#if>
         </div>
-        
-        
       </div>
     </div>
     

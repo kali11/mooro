@@ -1,12 +1,15 @@
 package com.lms.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import java.util.List;
 
-public interface UserService extends UserDetailsService {
+import com.lms.model.entity.User;
 
-    @Override
-    public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException;
+public interface UserService {
+
+    public void addUser(User user);
+
+    public void addUser(User user, String roleId);
+
+    public List<User> getAllUsers();
 
 }

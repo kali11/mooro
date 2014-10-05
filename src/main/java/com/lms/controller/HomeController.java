@@ -19,6 +19,6 @@ public class HomeController {
         if (auth.isAuthenticated()) {
             model.addAttribute("username", auth.getName());
         }
-        return "home";
+        return "home/index";
     }
 }
