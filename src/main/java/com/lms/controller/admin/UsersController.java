@@ -1,4 +1,4 @@
-package com.lms.controller;
+package com.lms.controller.admin;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,14 +17,14 @@ import com.lms.service.RoleService;
 import com.lms.service.UserService;
 
 /**
- * Controller responsible for system administration
+ * Controller responsible for users administration
  *
  * @author Piotr Kalinowski
  *
  */
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/admin/users")
+public class UsersController {
 
     @Autowired
     UserService userService;
@@ -32,26 +33,34 @@ public class AdminController {
     RoleService roleService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String index(Model model) {
-        return "admin/index";
-    }
-
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String users(Model model) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
-        return "admin/users";
+        return "admin/users/users";
     }
 
-    @RequestMapping(value = "/users/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addUser(@ModelAttribute User user, BindingResult result, Model model) {
         model.addAttribute("roles", roleService.getAllRolesMap());
-        return "admin/edit_user";
+        return "admin/users/edit_user";
     }
 
-    @RequestMapping(value = "/users/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute User user, @RequestParam("roleId") String roleId, Model model) {
-        userService.addUser(user, roleId);
+        userService.saveUser(user, roleId);
+        return "redirect:/admin/users";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editUser(@PathVariable Long id, Model model) {
+        model.addAttribute("user", userService.getUser(id));
+        model.addAttribute("roles", roleService.getAllRolesMap());
+        return "admin/users/edit_user";
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable Long id, Model model) {
+        userService.deleteUser(userService.getUser(id));
         return "redirect:/admin/users";
     }
 }

@@ -1,7 +1,8 @@
 <@common.page>
   <div class="jumbotron">
     <div class="container">
-      <form role="form" action="add" method="POST">
+      <form role="form" action="<@spring.url '/admin/users/save'/>" method="POST">
+      <@spring.formHiddenInput 'user.id' />
         <div class="form-group">
           <label for="login">Login</label>
           <@spring.formInput 'user.login' 'id="login" class="form-control" placeholder="Login" required' />
@@ -34,7 +35,7 @@
             </#list>
           </select>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">Zapisz</button>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       </form>
     </div>

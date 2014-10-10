@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <link href="<@spring.url '/resources/css/main.css' />" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="<@spring.url '/webjars/bootstrap/3.2.0/css/bootstrap.min.css' />" />
-    <script src="<@spring.url '/webjars/jquery/2.1.1/jquery.min.js' />"></script>
+    <script src="<@spring.url '/webjars/jquery/2.1.1/jquery.min.js' />" ></script>
+    <script src="<@spring.url '/webjars/bootstrap/3.2.0/js/bootstrap.min.js' />"></script>
     <title>LMS</title>
   </head>
   <body>

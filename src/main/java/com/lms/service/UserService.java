@@ -6,10 +6,14 @@ import com.lms.model.entity.User;
 
 public interface UserService {
 
-    public void addUser(User user);
+    public void saveUser(User user);
 
-    public void addUser(User user, String roleId);
+    public void saveUser(User user, String roleId);
+
+    public User getUser(Long id);
 
     public List<User> getAllUsers();
+
+    public void deleteUser(User user);
 
 }

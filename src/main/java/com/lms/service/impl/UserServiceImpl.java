@@ -3,7 +3,6 @@ package com.lms.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,22 +28,32 @@ public class UserServiceImpl implements UserService {
     RoleDao roleDao;
 
     @Override
-    public void addUser(User user) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
+    public void saveUser(User user) {
+        // BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        // user.setPassword(encoder.encode(user.getPassword()));
         userDao.save(user);
     }
 
     @Override
-    public void addUser(User user, String roleId) {
+    public void saveUser(User user, String roleId) {
         Role role = roleDao.find(Long.parseLong(roleId));
         user.setRole(role);
-        this.addUser(user);
+        this.saveUser(user);
     }
 
     @Override
     public List<User> getAllUsers() {
         return userDao.findAll();
+    }
+
+    @Override
+    public User getUser(Long id) {
+        return userDao.find(id);
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        userDao.remove(user);
     }
 
 }

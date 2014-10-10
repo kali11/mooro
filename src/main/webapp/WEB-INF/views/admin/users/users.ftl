@@ -1,5 +1,4 @@
 <@common.page>
-  <div class="jumbotron">
     <div class="container">
       Użytkownicy:
       <table class="table">
@@ -25,7 +24,7 @@
               <td>${user.role.name}</td>
               <td>
                 <a class="btn btn-primary btn-xs" href="<@spring.url '/admin/users/edit/' />${user.id}">Edytuj</a>
-                <a class="btn btn-danger btn-xs" href="<@spring.url '/admin/users/delete/' />${user.id}">Usuń</a>
+                <a class="btn btn-danger btn-xs confirm" data-placement="right" data-title="Czy na pewno?" data-btnOkLabel="Usuń" data-btnCancelLabel="Anuluj" data-href="<@spring.url '/admin/users/delete/' />${user.id}">Usuń</a>
               </td>
             </tr>
           </#list>
@@ -33,5 +32,9 @@
       </table>
       <a class="btn btn-success" href="<@spring.url '/admin/users/add'/>">Dodaj użytkownika</a>
     </div>
-  </div>
-</@common.page> 
+
+  <script src="<@spring.url '/resources/scripts/bootstrap-confirmation.js' />" ></script>
+  <script>
+  $('.confirm').confirmation();
+  </script>
+</@common.page>
