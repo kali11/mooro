@@ -19,7 +19,11 @@ public class Category {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "description")
+    private String description;
 
     public Long getId() {
         return id;
@@ -35,6 +39,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

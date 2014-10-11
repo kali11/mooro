@@ -33,8 +33,5 @@
       <a class="btn btn-success" href="<@spring.url '/admin/users/add'/>">Dodaj użytkownika</a>
     </div>
 
-  <script src="<@spring.url '/resources/scripts/bootstrap-confirmation.js' />" ></script>
-  <script>
-  $('.confirm').confirmation();
-  </script>
+  <#include "/lib/confirm.ftl">
 </@common.page>
