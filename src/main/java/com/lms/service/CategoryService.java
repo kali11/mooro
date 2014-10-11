@@ -1,6 +1,7 @@
 package com.lms.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.lms.model.entity.Category;
 
@@ -12,4 +13,6 @@ public interface CategoryService {
     public Category get(Long id);
 
     public void remove(Category category);
+
+    public Map<String, String> getAllCategoriesMap();
 }

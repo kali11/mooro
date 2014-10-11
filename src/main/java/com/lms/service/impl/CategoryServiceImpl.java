@@ -1,6 +1,8 @@
 package com.lms.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,16 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void remove(Category category) {
         categoryDao.remove(category);
+    }
+
+    @Override
+    public Map<String, String> getAllCategoriesMap() {
+        List<Category> categories = categoryDao.findAll();
+        Map<String, String> categoriesMap = new HashMap<>();
+        for (Category category : categories) {
+            categoriesMap.put(category.getId().toString(), category.getName());
+        }
+        return categoriesMap;
     }
 
 }
