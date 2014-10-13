@@ -5,14 +5,11 @@ import static javax.persistence.GenerationType.SEQUENCE;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -33,10 +30,7 @@ public class Category {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "category_course",
-            joinColumns = { @JoinColumn(name = "category_id", nullable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "course_id", nullable = false) })
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
     private Set<Course> courses = new HashSet<>();
 
     public Long getId() {

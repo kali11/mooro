@@ -12,7 +12,7 @@ public interface CategoryService {
 
     public Category get(Long id);
 
-    public void remove(Category category);
+    public void remove(Long id);
 
     public Map<String, String> getAllCategoriesMap();
 }

@@ -20,7 +20,7 @@
               <td>
                 <ul>
                   <#list course.categories as category>
-                  <li>category</li>
+                  <li>${category.name}</li>
                   </#list>
                 </ul>
               </td>

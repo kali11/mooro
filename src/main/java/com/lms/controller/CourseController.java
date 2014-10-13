@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,4 +43,18 @@ public class CourseController {
         return "redirect:/courses";
     }
 
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String edit(@PathVariable Long id, Model model) {
+        Course course = courseService.get(id);
+        model.addAttribute("course", course);
+        model.addAttribute("categories", categoryService.getAllCategoriesMap());
+        model.addAttribute("course_categories", courseService.getCourseCategoriesList(course));
+        return "courses/edit_course";
+    }
+
+    @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
+    public String remove(@PathVariable Long id, Model model) {
+        courseService.remove(id);
+        return "redirect:/courses";
+    }
 }

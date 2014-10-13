@@ -19,7 +19,11 @@
           <label for="category">Kategoria</label>
           <select name="categoryIds" class="form-control multiselect" id="category" multiple="multiple" required>
             <#list categories?keys as id>
-                <option value=${id}>${categories[id]}</option>
+                <#if course_categories?seq_contains(id)>
+                  <option value=${id} selected>${categories[id]}</option>
+                <#else>
+                  <option value=${id}>${categories[id]}</option>
+                </#if>
             </#list>
           </select>
         </div>

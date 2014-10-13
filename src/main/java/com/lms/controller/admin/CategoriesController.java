@@ -43,14 +43,14 @@ public class CategoriesController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editUser(@PathVariable Long id, Model model) {
+    public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("category", categoryService.get(id));
         return "admin/categories/edit_category";
     }
 
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
-    public String removeUser(@PathVariable Long id, Model model) {
-        categoryService.remove(categoryService.get(id));
+    public String remove(@PathVariable Long id, Model model) {
+        categoryService.remove(id);
         return "redirect:/admin/categories";
     }
 }

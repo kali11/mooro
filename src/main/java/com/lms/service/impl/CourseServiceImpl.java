@@ -1,11 +1,16 @@
 package com.lms.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.lms.model.dao.CategoryDao;
 import com.lms.model.dao.CourseDao;
 import com.lms.model.entity.Category;
@@ -34,21 +39,33 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void save(Course course, List<String> categoryIds) {
-        /*
-         * List<Long> categs = Lists.transform(categoryIds, new Function<String, Long>() {
-         * 
-         * @Override
-         * public Long apply(String id) {
-         * return Long.parseLong(id);
-         * }
-         * });
-         * Category[] categories = categoryDao.find(categs.toArray(new Long[] {}));
-         * course.setCategories(Sets.newHashSet(categories));
-         */
+        Set<Category> categories = new HashSet<>();
         for (String categoryId : categoryIds) {
             Category category = categoryDao.find(Long.parseLong(categoryId));
-            course.getCategories().add(category);
+            categories.add(category);
         }
+        course.setCategories(categories);
         this.save(course);
+    }
+
+    @Override
+    public Course get(Long id) {
+        return courseDao.find(id);
+    }
+
+    @Override
+    public void remove(Long id) {
+        courseDao.remove(courseDao.find(id));
+    }
+
+    @Override
+    public List<String> getCourseCategoriesList(Course course) {
+        return Lists.transform(ImmutableList.copyOf(course.getCategories()),
+                new Function<Category, String>() {
+                    @Override
+                    public String apply(Category arg0) {
+                        return arg0.getId().toString();
+                    }
+                });
     }
 }
