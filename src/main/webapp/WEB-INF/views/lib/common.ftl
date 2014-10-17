@@ -13,7 +13,7 @@
     <title>LMS</title>
   </head>
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div id="navigation" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -25,22 +25,25 @@
           <a class="navbar-brand" href="#">Platforma E-learningowa</a>
         </div>
         <div class="navbar-collapse collapse">
-          <#if username??>
+          <#if userlogin??>
             <form class="navbar-form navbar-right" method="POST" action="<@spring.url '/logout'/>">
-                <div class="form-group">
-                <div class="username">${username}</div>
-                </div
-                <div class="form-group">
+              <div class="btn-group">
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Użytkownik:&nbsp;${userlogin}&nbsp;<span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="/">Moje kursy</a></li>
+                  <li><a href="">Profil</a></li>
+                  <li class="divider"></li>
+                  <li>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    <button type="submit" class="btn btn-success">Wyloguj</button>
-                </div>
+                    <a href="#" onclick="$(this).closest('form').submit()">Wyloguj</a>
+                  </li>
+                </ul>
+              </div>
             </form>
           </#if>
         </div>
       </div>
     </div>
-    
-
  
     <#-- This processes the enclosed content:  -->
     <#nested>

@@ -1,5 +1,6 @@
 package com.lms.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -8,16 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.lms.service.UserService;
+
 @Controller
 @RequestMapping("/home")
-@SessionAttributes("username")
+@SessionAttributes("userlogin")
 public class HomeController {
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.isAuthenticated()) {
-            model.addAttribute("username", auth.getName());
+            model.addAttribute("userlogin", auth.getName());
         }
         return "home/index";
     }

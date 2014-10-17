@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,11 +40,17 @@ public class Course implements Serializable {
     @Column(name = "active")
     private Boolean active;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "category_course",
             joinColumns = { @JoinColumn(name = "course_id", nullable = false) },
             inverseJoinColumns = { @JoinColumn(name = "category_id", nullable = false) })
     private Set<Category> categories = new HashSet<Category>();
+
+    @ManyToMany(mappedBy = "subscribedCourses", fetch = FetchType.LAZY)
+    private Set<User> subscribers = new HashSet<>();
+
+    @ManyToMany(mappedBy = "authoredCourses", fetch = FetchType.LAZY)
+    private Set<User> authors = new HashSet<>();
 
     public Long getId() {
         return id;

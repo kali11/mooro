@@ -13,8 +13,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.lms.model.dao.CategoryDao;
 import com.lms.model.dao.CourseDao;
+import com.lms.model.dao.UserDao;
 import com.lms.model.entity.Category;
 import com.lms.model.entity.Course;
+import com.lms.model.entity.User;
 import com.lms.service.CourseService;
 
 @Service
@@ -26,6 +28,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public List<Course> getAll() {
@@ -62,10 +67,18 @@ public class CourseServiceImpl implements CourseService {
     public List<String> getCourseCategoriesList(Course course) {
         return Lists.transform(ImmutableList.copyOf(course.getCategories()),
                 new Function<Category, String>() {
-                    @Override
-                    public String apply(Category arg0) {
-                        return arg0.getId().toString();
-                    }
-                });
+            @Override
+            public String apply(Category arg0) {
+                return arg0.getId().toString();
+            }
+        });
+    }
+
+    @Override
+    public void subscribeUser(Long id, String login) {
+        Course course = this.get(id);
+        User user = userDao.getByLogin(login);
+        user.getSubscribedCourses().add(course);
+        userDao.save(user);
     }
 }

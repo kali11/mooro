@@ -2,6 +2,7 @@ package com.lms.model.entity;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = SEQUENCE)
     @Column(name = "id", nullable = false, unique = true)

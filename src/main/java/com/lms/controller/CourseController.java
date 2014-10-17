@@ -3,6 +3,7 @@ package com.lms.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -55,6 +56,13 @@ public class CourseController {
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
     public String remove(@PathVariable Long id, Model model) {
         courseService.remove(id);
+        return "redirect:/courses";
+    }
+
+    @RequestMapping(value = "/subscribe/{id}", method = RequestMethod.GET)
+    public String subscribe(@PathVariable Long id, Model model) {
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        courseService.subscribeUser(id, login);
         return "redirect:/courses";
     }
 }

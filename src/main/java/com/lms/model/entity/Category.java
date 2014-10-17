@@ -2,6 +2,7 @@ package com.lms.model.entity;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "categories")
-public class Category {
+public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "main_seq")
