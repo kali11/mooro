@@ -31,7 +31,7 @@
                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Użytkownik:&nbsp;${userlogin}&nbsp;<span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="/">Moje kursy</a></li>
-                  <li><a href="">Profil</a></li>
+                  <li><a href="/">Profil</a></li>
                   <li class="divider"></li>
                   <li>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -52,6 +52,22 @@
     </footer>
   </body>
   </html>
+</#macro>
+
+<#macro confirmation>
+<script src="<@spring.url '/resources/scripts/bootstrap-confirmation.js' />" ></script>
+<script>
+$('.confirm').confirmation();
+</script>
+</#macro>
+
+<#macro multiselect>
+<script src="<@spring.url '/resources/scripts/bootstrap-multiselect.js' />"></script>
+<script>
+$('.multiselect').multiselect({
+    nonSelectedText: 'Wybierz przynajmniej jedną',
+});
+</script>
 </#macro>
 
 <#macro otherExample p1 p2>

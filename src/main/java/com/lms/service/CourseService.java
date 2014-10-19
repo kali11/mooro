@@ -19,4 +19,6 @@ public interface CourseService {
     public List<String> getCourseCategoriesList(Course course);
 
     public void subscribeUser(Long id, String login);
+
+    public List<Course> getByCategoryId(Long id);
 }

@@ -29,7 +29,14 @@ public class CourseController {
     @RequestMapping(method = RequestMethod.GET)
     public String courses(Model model) {
         model.addAttribute("courses", courseService.getAll());
+        model.addAttribute("categories", categoryService.getAllCategoriesMap());
         return "courses/courses";
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String ajaxGetCourses(@RequestParam("category") String category, Model model) {
+        model.addAttribute("courses", courseService.getByCategoryId(Long.parseLong(category)));
+        return "courses/courses-list";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)

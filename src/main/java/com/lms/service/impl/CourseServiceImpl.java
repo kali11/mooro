@@ -1,5 +1,6 @@
 package com.lms.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -67,11 +68,11 @@ public class CourseServiceImpl implements CourseService {
     public List<String> getCourseCategoriesList(Course course) {
         return Lists.transform(ImmutableList.copyOf(course.getCategories()),
                 new Function<Category, String>() {
-            @Override
-            public String apply(Category arg0) {
-                return arg0.getId().toString();
-            }
-        });
+                    @Override
+                    public String apply(Category arg0) {
+                        return arg0.getId().toString();
+                    }
+                });
     }
 
     @Override
@@ -80,5 +81,14 @@ public class CourseServiceImpl implements CourseService {
         User user = userDao.getByLogin(login);
         user.getSubscribedCourses().add(course);
         userDao.save(user);
+    }
+
+    @Override
+    public List<Course> getByCategoryId(Long id) {
+        if (id == 0) {
+            return this.getAll();
+        }
+        Category category = categoryDao.find(id);
+        return new ArrayList<>(category.getCourses());
     }
 }

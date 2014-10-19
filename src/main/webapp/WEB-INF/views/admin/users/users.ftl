@@ -33,5 +33,5 @@
       <a class="btn btn-success" href="<@spring.url '/admin/users/add'/>">Dodaj użytkownika</a>
     </div>
 
-  <#include "/lib/confirm.ftl">
+  <@common.confirmation />
 </@common.page>

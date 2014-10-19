@@ -1,27 +1,41 @@
 <@common.page>
-    <div id="main-container" class="container">
-      <div class="row">
-        <#list courses as course>
-          <#if course.active>
-            <div class="col-md-4">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  ${course.title}
-                </div>
-                <div class="panel-body">
-                  <p>${course.description}</p>
-                  <a class="btn btn-info" href="<@spring.url '/courses/subscribe/' />${course.id}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Zapisz się</a>
-                </div>
-              </div>
-            </div>
-          </#if>
-        </#list>
+  <div id="main-container" class="container">
+    <h2>Kursy</h2>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <p class="navbar-text">Wybierz kategorię:</p>
+        <div class="navbar-left navbar-positioned">
+          <select name="category" class="multiselect" id="category" onchange=loadCourses($(this).val())>
+            <option value=0>Wszystkie</option>
+            <#list categories?keys as id>
+                  <option value=${id}>${categories[id]}</option>
+            </#list>
+          </select>
+        </div>
+        <a class="btn btn-success navbar-btn navbar-right" href="<@spring.url '/courses/add'/>">Dodaj kurs</a>
       </div>
-
-      <a class="btn btn-success" href="<@spring.url '/courses/add'/>">Dodaj kurs</a>
+    </nav>
+    <div id="courses">
+      <#include "/courses/courses-list.ftl">
     </div>
+  </div>
 
-  <#include "/lib/confirm.ftl">
+  <@common.multiselect />
+  <script src="<@spring.url '/resources/scripts/jquery.plainoverlay.min.js' />" ></script>
+  <script>
+  var loadCourses = function(categ){
+    $('#courses').plainOverlay('show');
+    $.ajax({
+        url: "<@spring.url '/courses' />",
+        type: "POST",
+        data: "${_csrf.parameterName}" + "=" + "${_csrf.token}&category="+categ,
+        success: function(response){
+            $("#courses").html(response);
+            $('#courses').plainOverlay('hide');
+        }
+    });
+  }
+  </script>
 </@common.page>
 <#--
       <table class="table">

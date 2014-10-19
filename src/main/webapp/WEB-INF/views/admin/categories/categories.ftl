@@ -1,12 +1,12 @@
 <@common.page>
-    <div class="container">
+    <div id="main-container" class="container">
       Kategorie kursów:
-      <table class="table">
+      <table class="table table-striped">
         <thead>
           <tr>
-            <td>Nazwa</td>
-            <td>Opis</td>
-            <td>Operacje</td>
+            <th>Nazwa</th>
+            <th>Opis</th>
+            <th>Operacje</th>
           </tr>
         </thead>
         <tbody>
@@ -25,5 +25,5 @@
       <a class="btn btn-success" href="<@spring.url '/admin/categories/add'/>">Dodaj kategorię</a>
     </div>
 
-  <#include "/lib/confirm.ftl">
+  <@common.confirmation />
 </@common.page>
