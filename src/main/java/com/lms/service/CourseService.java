@@ -21,4 +21,6 @@ public interface CourseService {
     public void subscribeUser(Long id, String login);
 
     public List<Course> getByCategoryId(Long id);
+
+    public List<Course> getByUserlogin(String login);
 }

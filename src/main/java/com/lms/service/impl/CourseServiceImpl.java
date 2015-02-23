@@ -68,11 +68,11 @@ public class CourseServiceImpl implements CourseService {
     public List<String> getCourseCategoriesList(Course course) {
         return Lists.transform(ImmutableList.copyOf(course.getCategories()),
                 new Function<Category, String>() {
-                    @Override
-                    public String apply(Category arg0) {
-                        return arg0.getId().toString();
-                    }
-                });
+            @Override
+            public String apply(Category arg0) {
+                return arg0.getId().toString();
+            }
+        });
     }
 
     @Override
@@ -90,5 +90,11 @@ public class CourseServiceImpl implements CourseService {
         }
         Category category = categoryDao.find(id);
         return new ArrayList<>(category.getCourses());
+    }
+
+    @Override
+    public List<Course> getByUserlogin(String login) {
+        User user = userDao.getByLogin(login);
+        return new ArrayList<>(user.getSubscribedCourses());
     }
 }

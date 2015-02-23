@@ -2,6 +2,8 @@ package com.lms.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -37,6 +39,14 @@ public class CourseController {
     public String ajaxGetCourses(@RequestParam("category") String category, Model model) {
         model.addAttribute("courses", courseService.getByCategoryId(Long.parseLong(category)));
         return "courses/courses-list";
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String courseIndex(@PathVariable Long id, Model model, HttpServletRequest request) {
+        Course course = courseService.get(id);
+        model.addAttribute("course", course);
+        model.addAttribute("currentUrl", request.getServletPath());
+        return "courses/course-index";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)

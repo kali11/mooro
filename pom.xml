@@ -145,7 +145,8 @@
         <artifactId>jetty-maven-plugin</artifactId>
         <version>9.2.3.v20140905</version>
         <configuration>
-          <scanIntervalSeconds>1</scanIntervalSeconds>
+          <!--  <scanIntervalSeconds>1</scanIntervalSeconds>-->
+          <reload>manual</reload>
           <webApp>
             <contextPath>/lms-platform</contextPath>
           </webApp>

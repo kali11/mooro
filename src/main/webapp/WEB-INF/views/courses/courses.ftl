@@ -12,7 +12,7 @@
             </#list>
           </select>
         </div>
-        <a class="btn btn-success navbar-btn navbar-right" href="<@spring.url '/courses/add'/>">Dodaj kurs</a>
+        <a class="btn btn-success navbar-btn navbar-right" href="<@spring.url '/courses/add'/>"><span class="glyphicon glyphicon-plus"></span>&nbspDodaj kurs</a>
       </div>
     </nav>
     <div id="courses">
