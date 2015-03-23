@@ -9,3 +9,11 @@ body {
 .navbar-positioned {
 	margin-top: 7px;
 }
+
+a.edit_module {
+	float: right;
+}
+
+div.modules-list {
+    padding: 3px;
+}

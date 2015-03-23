@@ -4,4 +4,6 @@ import com.lms.model.entity.Module;
 
 public interface ModuleService {
     public void save(Module module);
+
+    public Module get(Long id);
 }

@@ -1,10 +1,13 @@
 package com.lms.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.googlecode.genericdao.search.Search;
 import com.lms.model.dao.CategoryDao;
 import com.lms.model.dao.CourseDao;
 import com.lms.model.dao.UserDao;
@@ -35,7 +39,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getAll() {
-        return courseDao.findAll();
+        Search search = new Search(Course.class);
+        search.addSortAsc("title");
+        return courseDao.search(search);
     }
 
     @Override
@@ -60,6 +66,13 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Course getWithModules(Long id) {
+        Course c = courseDao.find(id);
+        Hibernate.initialize(c.getModules());
+        return c;
+    }
+
+    @Override
     public void remove(Long id) {
         courseDao.remove(courseDao.find(id));
     }
@@ -68,11 +81,11 @@ public class CourseServiceImpl implements CourseService {
     public List<String> getCourseCategoriesList(Course course) {
         return Lists.transform(ImmutableList.copyOf(course.getCategories()),
                 new Function<Category, String>() {
-            @Override
-            public String apply(Category arg0) {
-                return arg0.getId().toString();
-            }
-        });
+                    @Override
+                    public String apply(Category arg0) {
+                        return arg0.getId().toString();
+                    }
+                });
     }
 
     @Override
@@ -95,6 +108,13 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> getByUserlogin(String login) {
         User user = userDao.getByLogin(login);
-        return new ArrayList<>(user.getSubscribedCourses());
+        List<Course> courses = new ArrayList<>(user.getSubscribedCourses());
+        Collections.sort(courses, new Comparator<Course>() {
+            @Override
+            public int compare(Course o1, Course o2) {
+                return o1.getTitle().compareTo(o2.getTitle());
+            }
+        });
+        return courses;
     }
 }

@@ -43,7 +43,7 @@ public class CourseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String courseIndex(@PathVariable Long id, Model model, HttpServletRequest request) {
-        Course course = courseService.get(id);
+        Course course = courseService.getWithModules(id);
         model.addAttribute("course", course);
         model.addAttribute("currentUrl", request.getServletPath());
         return "courses/course-index";

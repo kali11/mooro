@@ -55,7 +55,7 @@ public class Course implements Serializable {
     @ManyToMany(mappedBy = "authoredCourses", fetch = FetchType.LAZY)
     private Set<User> authors = new HashSet<>();
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Module> modules;
 
     public Long getId() {
@@ -104,5 +104,29 @@ public class Course implements Serializable {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public Set<User> getSubscribers() {
+        return subscribers;
+    }
+
+    public void setSubscribers(Set<User> subscribers) {
+        this.subscribers = subscribers;
+    }
+
+    public Set<User> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<User> authors) {
+        this.authors = authors;
+    }
+
+    public List<Module> getModules() {
+        return modules;
+    }
+
+    public void setModules(List<Module> modules) {
+        this.modules = modules;
     }
 }

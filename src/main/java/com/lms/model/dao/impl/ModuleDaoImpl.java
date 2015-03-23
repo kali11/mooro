@@ -7,6 +7,6 @@ import com.lms.model.dao.generic.LmsGenericDaoImpl;
 import com.lms.model.entity.Module;
 
 @Repository
-public class ModelDaoImpl extends LmsGenericDaoImpl<Module, Long> implements ModuleDao {
+public class ModuleDaoImpl extends LmsGenericDaoImpl<Module, Long> implements ModuleDao {
 
 }

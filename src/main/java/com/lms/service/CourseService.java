@@ -14,6 +14,8 @@ public interface CourseService {
 
     public Course get(Long id);
 
+    public Course getWithModules(Long id);
+
     public void remove(Long id);
 
     public List<String> getCourseCategoriesList(Course course);

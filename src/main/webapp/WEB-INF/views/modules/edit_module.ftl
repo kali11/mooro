@@ -1,6 +1,6 @@
 <@common.page>
   <div id="main-container" class="container">
-    <form role="form" action="<@spring.url '/courses/'+courseId+'/modules/save'/>" method="POST">
+    <form role="form" action="<@spring.url '/modules/save?courseId=' + courseId />" method="POST">
     <@spring.formHiddenInput 'module.id' />
       <div class="form-group">
         <label for="title">Nazwa</label>
@@ -14,5 +14,4 @@
       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>
   </div>
-  ${courseId}
 </@common.page> 

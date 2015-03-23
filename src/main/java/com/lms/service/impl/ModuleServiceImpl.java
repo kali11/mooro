@@ -20,4 +20,9 @@ public class ModuleServiceImpl implements ModuleService {
         moduleDao.save(module);
     }
 
+    @Override
+    public Module get(Long id) {
+        return moduleDao.find(id);
+    }
+
 }
