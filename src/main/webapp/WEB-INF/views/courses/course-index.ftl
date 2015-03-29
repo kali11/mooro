@@ -31,7 +31,12 @@
                       asds
                       </div>
                       <div class="panel-footer">
-                        &nbsp;<a class="btn btn-xs btn-info edit_module" href="<@spring.url '/modules/edit/'+module.id+'?courseId='+course.id />"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edytuj moduł</a>
+                        <div class="modules-edit">
+                          <a class="btn btn-xs btn-success"><span class="glyphicon glyphicon-arrow-up"></span></a>
+                          <a class="btn btn-xs btn-success"><span class="glyphicon glyphicon-arrow-down"></span></a>
+                          <a class="btn btn-xs btn-info" href="<@spring.url '/modules/edit/'+module.id+'?courseId='+course.id />"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edytuj</a>
+                          <a class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;Usuń</a>
+                        </div>
                       </div>
                     </div>
                   </div>

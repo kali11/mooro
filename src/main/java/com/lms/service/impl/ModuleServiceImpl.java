@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.googlecode.genericdao.search.Field;
+import com.googlecode.genericdao.search.Search;
 import com.lms.model.dao.ModuleDao;
 import com.lms.model.entity.Module;
 import com.lms.service.ModuleService;
@@ -17,7 +19,15 @@ public class ModuleServiceImpl implements ModuleService {
 
     @Override
     public void save(Module module) {
-        moduleDao.save(module);
+
+        Search search = new Search(Module.class);
+        search.addField("orderSeq", Field.OP_MAX);
+        Long x = (Long) moduleDao.searchUnique(search);
+
+        // search.addFilter(Filter.custom(""))
+        // Long higherOrder = moduleDao.
+        System.out.println(x);
+        // moduleDao.save(module);
     }
 
     @Override

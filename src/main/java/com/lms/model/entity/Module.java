@@ -25,8 +25,8 @@ public class Module implements Serializable {
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "order_seq", nullable = false)
+    private Long orderSeq;
 
     @ManyToOne
     @JoinColumn(name = "course", nullable = false)
@@ -48,12 +48,12 @@ public class Module implements Serializable {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public Long getOrderSeq() {
+        return orderSeq;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setOrderSeq(Long orderSeq) {
+        this.orderSeq = orderSeq;
     }
 
     public Course getCourse() {

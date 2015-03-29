@@ -30,6 +30,9 @@ public class Lesson {
     @Column(name = "active")
     private Boolean active;
 
+    @Column(name = "order_seq", nullable = false)
+    private Long orderSeq;
+
     @ManyToOne
     @JoinColumn(name = "module", nullable = false)
     private Module module;
@@ -64,6 +67,14 @@ public class Lesson {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Long getOrderSeq() {
+        return orderSeq;
+    }
+
+    public void setOrderSeq(Long orderSeq) {
+        this.orderSeq = orderSeq;
     }
 
     public Module getModule() {
