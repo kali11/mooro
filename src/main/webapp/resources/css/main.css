@@ -13,3 +13,7 @@ body {
 div.modules-list {
     padding: 3px;
 }
+
+.breadcrumb {
+	font-size: 1.3em;
+}

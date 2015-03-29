@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.lms.model.entity.Course;
 import com.lms.model.entity.Module;
 import com.lms.service.CourseService;
 import com.lms.service.ModuleService;
@@ -24,7 +25,7 @@ public class ModuleController {
     private CourseService courseService;
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String modules(@ModelAttribute Module module, @RequestParam("courseId") Long courseId, Model model) {
+    public String add(@ModelAttribute Module module, @RequestParam("courseId") Long courseId, Model model) {
         model.addAttribute("courseId", courseId);
         return "modules/edit_module";
     }
@@ -37,9 +38,19 @@ public class ModuleController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String edit(@PathVariable Long id, Model model, @RequestParam("courseId") Long courseId) {
-        model.addAttribute("module", moduleService.get(id));
-        model.addAttribute("courseId", courseId);
+    public String edit(@PathVariable Long id, Model model) {
+        Module module = moduleService.get(id);
+        model.addAttribute("module", module);
+        model.addAttribute("courseId", module.getCourse().getId());
         return "modules/edit_module";
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String index(@PathVariable Long id, Model model) {
+        Module module = moduleService.getWithLessons(id);
+        model.addAttribute("module", module);
+        Course course = courseService.getWithModules(module.getCourse().getId());
+        model.addAttribute("course", course);
+        return "modules/module-index";
     }
 }

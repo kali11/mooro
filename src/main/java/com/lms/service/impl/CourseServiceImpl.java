@@ -45,19 +45,20 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void save(Course course) {
+    public Long save(Course course) {
         courseDao.save(course);
+        return course.getId();
     }
 
     @Override
-    public void save(Course course, List<String> categoryIds) {
+    public Long save(Course course, List<String> categoryIds) {
         Set<Category> categories = new HashSet<>();
         for (String categoryId : categoryIds) {
             Category category = categoryDao.find(Long.parseLong(categoryId));
             categories.add(category);
         }
         course.setCategories(categories);
-        this.save(course);
+        return save(course);
     }
 
     @Override

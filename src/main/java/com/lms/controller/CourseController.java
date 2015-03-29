@@ -57,8 +57,8 @@ public class CourseController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@ModelAttribute Course course, @RequestParam("categoryIds") List<String> categoryId, Model model) {
-        courseService.save(course, categoryId);
-        return "redirect:/courses";
+        Long courseId = courseService.save(course, categoryId);
+        return "redirect:/courses/" + courseId;
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)

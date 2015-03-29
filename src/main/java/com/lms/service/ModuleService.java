@@ -6,4 +6,6 @@ public interface ModuleService {
     public void save(Module module);
 
     public Module get(Long id);
+
+    public Module getWithLessons(Long id);
 }

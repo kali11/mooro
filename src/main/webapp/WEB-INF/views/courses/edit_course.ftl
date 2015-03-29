@@ -1,5 +1,6 @@
 <@common.page styles=['/resources/css/bootstrap-multiselect.css']>
     <div id="main-container" class="container">
+    <@common.breadcrumb "Edytujesz:" />
       <form role="form" action="<@spring.url '/courses/save'/>" method="POST">
       <@spring.formHiddenInput 'course.id' />
         <div class="form-group">

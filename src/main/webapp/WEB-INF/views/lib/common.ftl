@@ -70,6 +70,18 @@ $('.multiselect').multiselect({
 </script>
 </#macro>
 
+<#macro breadcrumb note="Jesteś w:">
+<#if course.id??>
+  <ol class="breadcrumb">
+  <strong>${note}</strong>
+    <li><a href="<@spring.url '/courses/'+course.id />">${course.title}</a></li>
+    <#if module??>
+    <li><a href="<@spring.url '/modules/'+module.id />" >${module.title}</a></li>
+  </#if>
+  </ol>
+</#if>
+</#macro>
+
 <#macro otherExample p1 p2>
   <p>The parameters were: ${p1}, ${p2}</p>
 </#macro>

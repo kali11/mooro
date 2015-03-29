@@ -8,9 +8,9 @@ public interface CourseService {
 
     public List<Course> getAll();
 
-    public void save(Course course);
+    public Long save(Course course);
 
-    public void save(Course course, List<String> categoryId);
+    public Long save(Course course, List<String> categoryId);
 
     public Course get(Long id);
 
