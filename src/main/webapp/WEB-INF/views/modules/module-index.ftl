@@ -20,8 +20,12 @@
                     </div>
                     <div id="collapse${lesson.id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading${lesson.id}">
                       <div class="panel-body">
+                      ${lesson.description}
                       <hr />
-                      asds
+                      lista elementów
+                      <ul>
+                      </ul>
+                      <button class="btm btn-xs btn-success" onclick=editElement(${lesson.id})><span class="glyphicon glyphicon-plus"></span>&nbsp;Dodaj element</button>
                       </div>
                       <div class="panel-footer">
                         <div class="modules-edit">
@@ -41,6 +45,31 @@
             </div>
           </div>
         </div>
+        <div class="col-md-9">
+          <div class="panel panel-primary">
+            <div id="element-title" class="panel-heading">
+            </div>
+            <div id="element-content" class="panel-body">
+            </div>
+          </div>
+        </div>
     </div>
   </div>
+  <script src="<@spring.url '/resources/scripts/jquery.plainoverlay.min.js' />" ></script>
+  <script>
+  var editElement = function(lessonId){
+    $('#element-title').text("Dodaj element");
+    $('#element-content').plainOverlay('show');
+    $.ajax({
+        url: "<@spring.url '/elements/add' />",
+        type: "POST",
+        data: "${_csrf.parameterName}" + "=" + "${_csrf.token}&lessonId="+lessonId,
+        success: function(response){
+            $("#element-content").html(response);
+            $('#element-content').plainOverlay('hide');
+        }
+    });
+  }
+
+  </script>
 </@common.page> 
