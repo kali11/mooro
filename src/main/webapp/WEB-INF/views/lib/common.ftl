@@ -70,6 +70,14 @@ $('.multiselect').multiselect({
 </script>
 </#macro>
 
+<#macro froala>
+  <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/froala_editor.min.js' />" ></script>
+  <!--[if lt IE 9]>
+      <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/froala_editor_ie8.min.js' />" ></script>
+  <![endif]-->
+  <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/langs/pl.js' />" ></script>
+</#macro>
+
 <#macro breadcrumb note="Jesteś w:">
 <#if course.id??>
   <ol class="breadcrumb">
@@ -80,6 +88,11 @@ $('.multiselect').multiselect({
   </#if>
   </ol>
 </#if>
+</#macro>
+
+<#macro jsStr>
+  <#local captured><#nested></#local>
+  "${captured?js_string}"<#t>
 </#macro>
 
 <#macro otherExample p1 p2>

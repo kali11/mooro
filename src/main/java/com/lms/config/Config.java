@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -17,7 +18,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 @Configuration
 // Marks this class as configuration
-@PropertySource({ "classpath:freemarker.properties" })
+@PropertySource({ "classpath:freemarker.properties", "classpath:application.properties" })
 // Specifies which package to scan
 @ComponentScan("com.lms")
 // Enables Spring's annotations
@@ -31,6 +32,7 @@ public class Config extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
+        registry.addResourceHandler("/files/**").addResourceLocations("file:" + env.getProperty("filesPath"));
     }
 
     @Bean
@@ -49,6 +51,15 @@ public class Config extends WebMvcConfigurerAdapter {
         result.setFreemarkerSettings(this.freemarkerProperties());
         result.setTemplateLoaderPath("/WEB-INF/views/");
         return result;
+    }
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver setupMultipartResolver() {
+        CommonsMultipartResolver mr = new CommonsMultipartResolver();
+        // if (user_is_not_admin) {
+        // mr.setMaxUploadSize(10000);
+        // }
+        return mr;
     }
 
     private Properties freemarkerProperties() {
