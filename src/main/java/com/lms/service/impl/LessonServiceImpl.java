@@ -19,13 +19,14 @@ public class LessonServiceImpl implements LessonService {
     private LessonDao lessonDao;
 
     @Override
-    public void save(Lesson lesson) {
+    public Long save(Lesson lesson) {
         Search search = new Search(Lesson.class);
         search.addFilter(Filter.equal("module", lesson.getModule()));
         search.addField("orderSeq", Field.OP_MAX);
         Long higherOrder = (Long) lessonDao.searchUnique(search);
         lesson.setOrderSeq(higherOrder != null ? ++higherOrder : 1);
         lessonDao.save(lesson);
+        return lesson.getId();
     }
 
 }

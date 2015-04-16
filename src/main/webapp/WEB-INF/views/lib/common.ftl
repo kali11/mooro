@@ -76,6 +76,15 @@ $('.multiselect').multiselect({
       <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/froala_editor_ie8.min.js' />" ></script>
   <![endif]-->
   <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/langs/pl.js' />" ></script>
+  <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/tables.min.js' />" ></script>
+  <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/urls.min.js' />" ></script>
+  <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/lists.min.js' />" ></script>
+  <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/colors.min.js' />" ></script>
+  <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/font_family.min.js' />" ></script>
+  <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/font_size.min.js' />" ></script>
+  <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/block_styles.min.js' />" ></script>
+  <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/video.min.js' />" ></script>
+
 </#macro>
 
 <#macro breadcrumb note="Jesteś w:">

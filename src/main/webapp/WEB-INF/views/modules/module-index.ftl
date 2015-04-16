@@ -1,7 +1,9 @@
 <#import "/lib/navbar.ftl" as navbar>
+<#import "/lib/elements.ftl" as elements>
 <@common.page styles=['/webjars/font-awesome/4.3.0/css/font-awesome.min.css', 
 '/webjars/FroalaWysiwygEditor/1.2.6/css/froala_editor.min.css', 
-'/webjars/FroalaWysiwygEditor/1.2.6/css/froala_style.min.css']>
+'/webjars/FroalaWysiwygEditor/1.2.6/css/froala_style.min.css',
+'/webjars/FroalaWysiwygEditor/1.2.6/css/froala_content.min.css']>
 <@common.froala />
   <div id="main-container" class="container">
    <@common.breadcrumb />

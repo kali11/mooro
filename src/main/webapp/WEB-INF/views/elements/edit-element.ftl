@@ -50,7 +50,10 @@
     type = $(this).attr("name");
     switch(type) {
       case 'text':
-        $("#element-details").html(<@common.jsStr><@elements.elementText /></@>);
+        $("#element-details").html(<@common.jsStr><@elements.elementText lessonId /></@>);
+      break;
+      case 'video':
+        $("#element-details").html(<@common.jsStr><@elements.elementVideo lessonId /></@>);
       break;
     }
   })
