@@ -46,11 +46,13 @@ public class ModuleController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String index(@PathVariable Long id, Model model) {
+    public String index(@PathVariable Long id, @RequestParam(value = "lessonId", required = false) Long lessonId,
+            Model model) {
         Module module = moduleService.getWithLessons(id);
         model.addAttribute("module", module);
         Course course = courseService.getWithModules(module.getCourse().getId());
         model.addAttribute("course", course);
+        model.addAttribute("activeLessonId", lessonId);
         return "modules/module-index";
     }
 }

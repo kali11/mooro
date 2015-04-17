@@ -5,4 +5,6 @@ import com.lms.model.entity.Lesson;
 public interface LessonService {
 
     public Long save(Lesson lesson);
+
+    public Lesson get(Long id);
 }

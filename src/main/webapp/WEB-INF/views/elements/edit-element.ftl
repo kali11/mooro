@@ -1,8 +1,14 @@
 <#import "/lib/elements.ftl" as elements>
-<form role="form">
+<form role="form" action="<@spring.url '/elements/save?lessonId=' + lessonId />" method="POST">
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+  <input type="hidden" name="elementType" id="elementType" value="" />
   <div class="form-group">
     <label for="title">Tytuł:</label>
-    <input class="form-control" id="title" name="title" type="text" />
+    <@spring.formInput 'element.title' 'id="title" class="form-control" placeholder="Tytuł" required' />
+  </div>
+  <div class="form-group">
+    <label for="active">Aktywny</label>
+    <@spring.formCheckbox 'element.active' 'id="active" class="form-control"' />
   </div>
   <div class="form-group">
     <label for="type">Typ elementu:</label><br />
@@ -17,6 +23,7 @@
     <div id="element-details">
     </div>
   </div>
+  <button id="element-submit" style="display: none" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp;Zapisz</button>
 </form>
 
 <script>
@@ -31,7 +38,7 @@
         displayText = "Quiz";
       break;
       case 'video':
-        displayText = "Klip filmowy";
+        displayText = "Film z YouTube";
       break;
       case 'audio':
         displayText = "Klip dźwiękowy";
@@ -47,13 +54,16 @@
   });
   
   $('button.element-type').click(function(){
+    $("#element-submit").show();
     type = $(this).attr("name");
     switch(type) {
       case 'text':
-        $("#element-details").html(<@common.jsStr><@elements.elementText lessonId /></@>);
+        $("#element-details").html(<@common.jsStr><@elements.editElementText lessonId /></@>);
+        $("#elementType").val(type);
       break;
       case 'video':
-        $("#element-details").html(<@common.jsStr><@elements.elementVideo lessonId /></@>);
+        $("#element-details").html(<@common.jsStr><@elements.editElementVideo /></@>);
+        $("#elementType").val(type);
       break;
     }
   })

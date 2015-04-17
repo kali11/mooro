@@ -29,4 +29,9 @@ public class LessonServiceImpl implements LessonService {
         return lesson.getId();
     }
 
+    @Override
+    public Lesson get(Long id) {
+        return lessonDao.find(id);
+    }
+
 }

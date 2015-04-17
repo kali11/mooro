@@ -10,7 +10,7 @@ body {
 	margin-top: 7px;
 }
 
-div.modules-list {
+div.lessons-list {
     padding: 3px;
 }
 
@@ -20,4 +20,27 @@ div.modules-list {
 
 #display-text {
 	font-size: 1.3em;
+}
+
+.lesson-title {
+	display:block;
+	height: 40px;
+	padding: 10px 0 0 10px ;
+}
+
+.lesson-title:hover {
+	text-decoration: none;	
+}
+
+.lessons-list .panel-heading {
+	padding: 0;
+}
+
+.lessons-list .panel-heading:hover {
+	background-color: #D8D8D8;
+}
+
+.lessons-list .element-title:hover {
+	cursor: pointer;
+	background-color: #B7E6FD;
 }

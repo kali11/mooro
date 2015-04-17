@@ -11,9 +11,9 @@
         <@spring.formTextarea 'lesson.description' 'id="description" class="form-control" placeholder="Opis" required' />
       </div>
       <div class="form-group">
-          <label for="active">Aktywna</label>
-          <@spring.formCheckbox 'lesson.active' 'id="active" class="form-control"' />
-        </div>
+        <label for="active">Aktywna</label>
+        <@spring.formCheckbox 'lesson.active' 'id="active" class="form-control"' />
+      </div>
       <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp;Zapisz</button>
       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>
