@@ -1,8 +1,9 @@
 package com.lms.service.impl;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,7 +11,10 @@ import com.googlecode.genericdao.search.Field;
 import com.googlecode.genericdao.search.Filter;
 import com.googlecode.genericdao.search.Search;
 import com.lms.model.dao.ElementDao;
+import com.lms.model.dao.LessonDao;
 import com.lms.model.entity.Element;
+import com.lms.model.entity.ElementText;
+import com.lms.model.entity.ElementVideo;
 import com.lms.service.ElementService;
 
 @Service
@@ -20,8 +24,52 @@ public class ElementServiceImpl implements ElementService {
     @Autowired
     private ElementDao elementDao;
 
+    @Autowired
+    private LessonDao lessonDao;
+
+    @Autowired
+    private Environment env;
+
     @Override
-    public Long save(Element element) {
+    public Element get(Long id) {
+        return elementDao.find(id);
+    }
+
+    @Override
+    public void save(Element element, String elementType, HttpServletRequest request) {
+        switch (elementType) {
+        case "text":
+            saveText(element, request);
+            break;
+        case "video":
+            saveVideo(element, request);
+            break;
+        }
+    }
+
+    @Override
+    public void delete(Element element) {
+        element.getLesson().getElements().remove(element);
+        lessonDao.save(element.getLesson());
+        elementDao.remove(element);
+    }
+
+    private void saveText(Element element, HttpServletRequest request) {
+        ElementText elementText = new ElementText(element);
+        elementText.setText(request.getParameter("text"));
+        saveElement(elementText);
+    }
+
+    private void saveVideo(Element element, HttpServletRequest request) {
+        ElementVideo elementVideo = new ElementVideo(element);
+        elementVideo.setDescription(request.getParameter("description"));
+        String src = request.getParameter("src");
+        src = src.replace("watch?v=", "embed/");
+        elementVideo.setSrc(src);
+        saveElement(elementVideo);
+    }
+
+    private Long saveElement(Element element) {
         Search search = new Search(Element.class);
         search.addFilter(Filter.equal("lesson", element.getLesson()));
         search.addField("orderSeq", Field.OP_MAX);
@@ -30,15 +78,4 @@ public class ElementServiceImpl implements ElementService {
         elementDao.save(element);
         return element.getId();
     }
-
-    @Override
-    public List<Element> getAll() {
-        return elementDao.findAll();
-    }
-
-    @Override
-    public Element get(Long id) {
-        return elementDao.find(id);
-    }
-
 }

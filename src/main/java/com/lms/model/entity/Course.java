@@ -123,6 +123,7 @@ public class Course implements Serializable {
     }
 
     public List<Module> getModules() {
+        modules.sort((m1, m2) -> Long.compare(m1.getOrderSeq(), m2.getOrderSeq()));
         return modules;
     }
 

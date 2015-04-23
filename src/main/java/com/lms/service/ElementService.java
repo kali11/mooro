@@ -1,13 +1,14 @@
 package com.lms.service;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 import com.lms.model.entity.Element;
 
 public interface ElementService {
-    public Long save(Element element);
-
-    public List<Element> getAll();
 
     public Element get(Long id);
+
+    public void save(Element element, String elementType, HttpServletRequest request);
+
+    public void delete(Element element);
 }

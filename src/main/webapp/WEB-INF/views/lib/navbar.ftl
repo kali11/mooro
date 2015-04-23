@@ -14,7 +14,7 @@
         </div>
         
         <#if module??>
-          <a class="btn btn-warning" href="<@spring.url '/modules/edit/'+module.id />"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edytuj moduł</a>
+          <a class="btn btn-warning" href="<@spring.url '/modules/edit/'+module.id />"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edytuj moduł</a>
           <!--<div class="btn-group navbar-btn">
               <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 Zarządzaj modułem<span class="caret"></span>
@@ -26,7 +26,7 @@
               </ul>
           </div>-->
         <#else>
-          <a class="btn btn-warning" href="<@spring.url '/courses/edit/'+course.id />"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edytuj kurs</a>
+          <a class="btn btn-warning" href="<@spring.url '/courses/edit/'+course.id />"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edytuj kurs</a>
           <!--
           <div class="btn-group navbar-btn">
               <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

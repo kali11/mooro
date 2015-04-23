@@ -83,8 +83,14 @@ $('.multiselect').multiselect({
   <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/font_family.min.js' />" ></script>
   <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/font_size.min.js' />" ></script>
   <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/block_styles.min.js' />" ></script>
-  <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/video.min.js' />" ></script>
+</#macro>
 
+<#macro fileUpload>
+  <script src="<@spring.url '/webjars/blueimp-file-upload/9.9.3/js/vendor/jquery.ui.widget.js' />" ></script>
+  <script src="<@spring.url '/webjars/blueimp-file-upload/9.9.3/js/jquery.fileupload.js' />" ></script>
+  <script src="<@spring.url '/webjars/blueimp-file-upload/9.9.3/js/jquery.iframe-transport.js' />" ></script>
+  <script src="<@spring.url '/webjars/blueimp-file-upload/9.9.3/js/jquery.fileupload-process.js' />" ></script>
+  <script src="<@spring.url '/webjars/blueimp-file-upload/9.9.3/js/jquery.fileupload-validate.js' />" ></script>  
 </#macro>
 
 <#macro breadcrumb note="Jesteś w:">

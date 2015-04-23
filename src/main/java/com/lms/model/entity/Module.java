@@ -72,6 +72,7 @@ public class Module implements Serializable {
     }
 
     public List<Lesson> getLessons() {
+        lessons.sort((l1, l2) -> Long.compare(l1.getOrderSeq(), l2.getOrderSeq()));
         return lessons;
     }
 

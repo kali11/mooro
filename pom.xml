@@ -172,6 +172,11 @@
       <version>1.2.6</version>
     </dependency>
     
+    <dependency>
+      <groupId>org.webjars.bower</groupId>
+      <artifactId>blueimp-file-upload</artifactId>
+      <version>9.9.3</version>
+    </dependency>
 
   </dependencies>
   <build>

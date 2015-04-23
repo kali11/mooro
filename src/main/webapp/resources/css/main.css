@@ -32,15 +32,43 @@ div.lessons-list {
 	text-decoration: none;	
 }
 
-.lessons-list .panel-heading {
+#lessons-list .panel-heading {
 	padding: 0;
 }
 
-.lessons-list .panel-heading:hover {
+#lessons-list .panel-heading:hover {
 	background-color: #D8D8D8;
 }
 
-.lessons-list .element-title:hover {
+#lessons-list .element-title:hover {
 	cursor: pointer;
 	background-color: #B7E6FD;
+}
+
+.fileinput-button {
+    margin-right: 10px;
+}
+
+#drop-area {
+	border: 4px dashed black;
+	width: 350px;
+	height: 80px;
+	text-align: center;
+	margin-left: 145px;
+	margin-top: -33px;
+}
+
+#drop-area span {
+	position: relative;
+	top: 20px;
+}
+
+#upload-progress {
+	display: inline-block;
+    width: 40px;
+    height: 40px;
+}
+
+#upload-progress .plainoverlay {
+	background-color: white!important;
 }

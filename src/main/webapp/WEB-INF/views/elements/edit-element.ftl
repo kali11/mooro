@@ -12,18 +12,18 @@
   </div>
   <div class="form-group">
     <label for="type">Typ elementu:</label><br />
-    <button name="text" type="button" class="btn btn-success btn-lg element-type"><span class="glyphicon glyphicon-font" aria-hidden="true"></span></button>
-    <button name="video" type="button" class="btn btn-success btn-lg element-type"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span></button>
-    <button name="audio" type="button" class="btn btn-success btn-lg element-type"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>
-    <button name="quiz" type="button" class="btn btn-success btn-lg element-type"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
-    <button name="file" type="button" class="btn btn-success btn-lg element-type"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></button>
+    <button name="text" type="button" class="btn btn-lg element-type"><span class="glyphicon glyphicon-font" aria-hidden="true"></span></button>
+    <button name="video" type="button" class="btn btn-lg element-type"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span></button>
+    <button name="audio" type="button" class="btn btn-lg element-type"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>
+    <button name="quiz" type="button" class="btn btn-lg element-type"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+    <button name="file" type="button" class="btn btn-lg element-type"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></button>
     &nbsp;<span id="display-text"></span>
   </div>
-  <div class="form-group">
-    <div id="element-details">
-    </div>
+  <div id="element-details">
   </div>
-  <button id="element-submit" style="display: none" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp;Zapisz</button>
+  <div class="form-group">
+    <button id="element-submit" style="display: none" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp;Zapisz</button>
+  </div>
 </form>
 
 <script>
@@ -63,6 +63,10 @@
       break;
       case 'video':
         $("#element-details").html(<@common.jsStr><@elements.editElementVideo /></@>);
+        $("#elementType").val(type);
+      break;
+      case 'audio':
+        $("#element-details").html(<@common.jsStr><@elements.editElementAudio lessonId /></@>);
         $("#elementType").val(type);
       break;
     }

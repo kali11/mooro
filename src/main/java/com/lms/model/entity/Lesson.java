@@ -95,6 +95,7 @@ public class Lesson implements Serializable {
     }
 
     public List<Element> getElements() {
+        elements.sort((e1, e2) -> Long.compare(e1.getOrderSeq(), e2.getOrderSeq()));
         return elements;
     }
 
