@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -27,6 +28,9 @@ public class File {
 
     @Column(name = "location", nullable = false)
     private String location;
+
+    @OneToOne(mappedBy = "file")
+    private ElementAudio elementAudio;
 
     public Long getId() {
         return id;
@@ -58,6 +62,14 @@ public class File {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public ElementAudio getElementAudio() {
+        return elementAudio;
+    }
+
+    public void setElementAudio(ElementAudio elementAudio) {
+        this.elementAudio = elementAudio;
     }
 
 }

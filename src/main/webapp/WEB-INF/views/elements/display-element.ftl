@@ -6,4 +6,7 @@
   <#case 'video'>
     <@elements.elementVideo element />
   <#break>
+  <#case 'audio'>
+    <@elements.elementAudio element />
+  <#break>
 </#switch>

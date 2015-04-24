@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lms.model.entity.Element;
+import com.lms.model.entity.ElementAudio;
 import com.lms.model.entity.ElementText;
 import com.lms.model.entity.ElementVideo;
 import com.lms.model.entity.Lesson;
@@ -44,13 +45,18 @@ public class ElementController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public String ajaxDisplay(@PathVariable Long id, Model model) {
+    public String ajaxDisplay(@PathVariable Long id, Model model, HttpServletRequest request) {
         Element element = elementService.get(id);
         String elementType = "";
         if (element instanceof ElementText) {
             elementType = "text";
         } else if (element instanceof ElementVideo) {
             elementType = "video";
+        } else if (element instanceof ElementAudio) {
+            ElementAudio elementAudio = (ElementAudio) element;
+            model.addAttribute("filePath", request.getContextPath() + "/files/" + element.getLesson().getId()
+                    + "/audio/" + elementAudio.getFile().getUuid());
+            elementType = "audio";
         }
         model.addAttribute("elementType", elementType);
         model.addAttribute("element", element);

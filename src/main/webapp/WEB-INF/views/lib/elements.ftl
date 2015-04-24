@@ -109,4 +109,12 @@
   <@modifyElement element />
   <iframe style="display:block; margin:auto;" width="640" height="360" src="${element.src}" frameborder="0" allowfullscreen=""></iframe>
   <p>${element.description}</p>
-</#macro> 
+</#macro>
+
+<#macro elementAudio element>
+  <@modifyElement element />
+  <audio controls>
+    <source src="${filePath}">
+  </audio>
+  <p>${element.description}</p>
+</#macro>

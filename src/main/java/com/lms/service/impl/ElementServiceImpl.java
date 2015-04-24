@@ -11,10 +11,13 @@ import com.googlecode.genericdao.search.Field;
 import com.googlecode.genericdao.search.Filter;
 import com.googlecode.genericdao.search.Search;
 import com.lms.model.dao.ElementDao;
+import com.lms.model.dao.FileDao;
 import com.lms.model.dao.LessonDao;
 import com.lms.model.entity.Element;
+import com.lms.model.entity.ElementAudio;
 import com.lms.model.entity.ElementText;
 import com.lms.model.entity.ElementVideo;
+import com.lms.model.entity.File;
 import com.lms.service.ElementService;
 
 @Service
@@ -26,6 +29,9 @@ public class ElementServiceImpl implements ElementService {
 
     @Autowired
     private LessonDao lessonDao;
+
+    @Autowired
+    private FileDao fileDao;
 
     @Autowired
     private Environment env;
@@ -43,6 +49,9 @@ public class ElementServiceImpl implements ElementService {
             break;
         case "video":
             saveVideo(element, request);
+            break;
+        case "audio":
+            saveAudio(element, request);
             break;
         }
     }
@@ -69,6 +78,14 @@ public class ElementServiceImpl implements ElementService {
         saveElement(elementVideo);
     }
 
+    private void saveAudio(Element element, HttpServletRequest request) {
+        ElementAudio elementAudio = new ElementAudio(element);
+        elementAudio.setDescription(request.getParameter("description"));
+        File file = fileDao.find(Long.valueOf(request.getParameter("fileId")));
+        elementAudio.setFile(file);
+        saveElement(elementAudio);
+    }
+
     private Long saveElement(Element element) {
         Search search = new Search(Element.class);
         search.addFilter(Filter.equal("lesson", element.getLesson()));
@@ -78,4 +95,5 @@ public class ElementServiceImpl implements ElementService {
         elementDao.save(element);
         return element.getId();
     }
+
 }

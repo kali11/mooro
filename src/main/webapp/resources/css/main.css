@@ -72,3 +72,12 @@ div.lessons-list {
 #upload-progress .plainoverlay {
 	background-color: white!important;
 }
+
+#fileupload {
+	width: 100px;
+	font-size: 0;
+}
+
+audio {
+	width: 100%;
+}
