@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -40,8 +41,24 @@ public class Course implements Serializable {
     @Column(name = "start_date")
     private Date startDate;
 
-    @Column(name = "active")
-    private Boolean active;
+    @Column(name = "end_date")
+    private Date endDate;
+
+    @Column(name = "video_src")
+    private String videoSrc;
+
+    @Column(name = "prerequisites")
+    private String prerequisites;
+
+    @Column(name = "syllabus")
+    private String syllabus;
+
+    @OneToOne
+    @JoinColumn(name = "file")
+    private File thumbnail;
+
+    @Column(name = "active", nullable = false)
+    private Boolean active = false;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "category_course",
@@ -88,6 +105,46 @@ public class Course implements Serializable {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getVideoSrc() {
+        return videoSrc;
+    }
+
+    public void setVideoSrc(String videoSrc) {
+        this.videoSrc = videoSrc;
+    }
+
+    public String getPrerequisites() {
+        return prerequisites;
+    }
+
+    public void setPrerequisites(String prerequisites) {
+        this.prerequisites = prerequisites;
+    }
+
+    public String getSyllabus() {
+        return syllabus;
+    }
+
+    public void setSyllabus(String syllabus) {
+        this.syllabus = syllabus;
+    }
+
+    public File getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(File thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public Boolean getActive() {

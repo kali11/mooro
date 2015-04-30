@@ -48,10 +48,10 @@
   </div>
   <div class="form-group">
     <label for="audio-upload">Plik audio (.mp3, .ogg lub .wav):</label><br />
-    <button name="audio-upload" id="audio-upload" class="btn btn-info fileinput-button">
+    <span name="audio-upload" id="audio-upload" class="btn btn-info fileinput-button">
       <span class="glyphicon glyphicon-upload"></span>&nbsp;Dodaj plik
       <input id="fileupload" type="file" name="file" accept="audio/*">
-    </button><span id="filename"></span>
+    </span><span id="filename"></span>
   </div>
   <div class="form-group">
     <div id="upload-progress"></div>
@@ -83,6 +83,35 @@
         $("#filename").text("Wysyłanie nie powiodło się!");
       }
     });
+  </script>
+</#macro>
+
+<#macro editElementFile lessonId>
+<div class="form-group">
+  <label for="text">Tekst (Aby dodać plik naciśnik ikonę agrafki):</label>
+  <textarea class="form-control" id="text" name="text" type="text"></textarea>
+  </textarea>
+</div>
+  <script>
+      $(function() {
+          $('#text').editable({
+          language: 'pl',
+          spellcheck: true,
+          minHeight: 200,
+          //imageUploadURL: "<@spring.url '/files/upload/image?${_csrf.parameterName}=${_csrf.token}' />",
+          //imageUploadParams: {lessonId: ${lessonId}},
+          //imageDeleteURL: "<@spring.url '/files/delete/image?${_csrf.parameterName}=${_csrf.token}' />",
+          buttons: ["bold", "italic", "underline", "insertOrderedList", "insertUnorderedList",
+          "insertHorizontalRule", "undo", "redo", "sep", "uploadFile"],
+          inlineMode: false
+          })
+          .on('editable.imageError', function (e, editor, error) {
+            console.log(error);
+          })
+          .on('editable.afterRemoveImage', function (e, editor, img) {
+            editor.deleteImage(img);
+          });
+      });
   </script>
 </#macro>
 

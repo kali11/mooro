@@ -26,11 +26,20 @@ public class File {
     @Column(name = "original_name", nullable = false)
     private String originalName;
 
-    @Column(name = "location", nullable = false)
-    private String location;
+    @Column(name = "path", nullable = false)
+    private String path;
+
+    /**
+     * in bytes
+     */
+    @Column(name = "size", nullable = false)
+    private Long size;
 
     @OneToOne(mappedBy = "file")
     private ElementAudio elementAudio;
+
+    @OneToOne(mappedBy = "thumbnail")
+    private Course course;
 
     public Long getId() {
         return id;
@@ -56,12 +65,20 @@ public class File {
         this.originalName = originalName;
     }
 
-    public String getLocation() {
-        return location;
+    public String getPath() {
+        return path;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public Long getSize() {
+        return size;
+    }
+
+    public void setSize(Long size) {
+        this.size = size;
     }
 
     public ElementAudio getElementAudio() {
@@ -70,6 +87,14 @@ public class File {
 
     public void setElementAudio(ElementAudio elementAudio) {
         this.elementAudio = elementAudio;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
 }

@@ -32,7 +32,7 @@ public class Config extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
-        registry.addResourceHandler("/files/**").addResourceLocations("file:" + env.getProperty("filesPath"));
+        // registry.addResourceHandler("/files/**").addResourceLocations("file:" + env.getProperty("filesPath"));
     }
 
     @Bean

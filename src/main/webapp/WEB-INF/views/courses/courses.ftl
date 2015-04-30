@@ -1,4 +1,5 @@
-<@common.page>
+<#import "/lib/course-helper.ftl" as courseHelper>
+<@common.page styles=['/resources/css/bootstrap-multiselect.css']>
   <div id="main-container" class="container">
     <h2>Kursy</h2>
     <nav class="navbar navbar-default">
@@ -12,12 +13,31 @@
             </#list>
           </select>
         </div>
-        <a class="btn btn-success navbar-btn navbar-right" href="<@spring.url '/courses/add'/>"><span class="glyphicon glyphicon-plus"></span>&nbspDodaj kurs</a>
+        <button type="button" class="btn btn-success navbar-btn navbar-right" data-toggle="modal" data-target="#add-course-modal"><span class="glyphicon glyphicon-plus"></span>&nbspDodaj kurs</button>
       </div>
     </nav>
     <div id="courses">
       <#include "/courses/courses-list.ftl">
     </div>
+  </div>
+  
+  <div class="modal fade" id="add-course-modal" tabindex="-1" role="dialog" aria-labelledby="add-course-label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="add-course-label">Dodaj kurs</h4>
+          </div>
+          <div class="modal-body">
+            <@courseHelper.editCourse />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+            <button onclick="$('#edit-course').submit()" type="button" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp;Zapisz</button>
+          </div>
+          
+        </div>
+      </div>
   </div>
 
   <@common.multiselect />
@@ -37,36 +57,3 @@
   }
   </script>
 </@common.page>
-<#--
-      <table class="table">
-        <thead>
-          <tr>
-            <td>Nazwa</td>
-            <td>Opis</td>
-            <td>Aktywny</td>
-            <td>Kategorie</td>
-            <td>Operacje</td>
-          </tr>
-        </thead>
-        <tbody>
-          <#list courses as course>
-            <tr>
-              <td>${course.title}</td>
-              <td>${course.description}</td>
-              <td>${course.active?string('tak', 'nie')}</td>
-              <td>
-                <ul>
-                  <#list course.categories as category>
-                  <li>${category.name}</li>
-                  </#list>
-                </ul>
-              </td>
-              <td>
-                <a class="btn btn-primary btn-xs" href="<@spring.url '/courses/edit/' />${course.id}">Edytuj</a>
-                <a class="btn btn-danger btn-xs confirm" data-placement="right" data-title="Czy na pewno?" data-btnOkLabel="Usuń" data-btnCancelLabel="Anuluj" data-href="<@spring.url '/courses/remove/' />${course.id}">Usuń</a>
-              </td>
-            </tr>
-          </#list>
-        </tbody>
-      </table>
--->

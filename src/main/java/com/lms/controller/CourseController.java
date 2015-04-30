@@ -29,7 +29,7 @@ public class CourseController {
     private CategoryService categoryService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String courses(Model model) {
+    public String courses(@ModelAttribute Course course, Model model) {
         model.addAttribute("courses", courseService.getAll());
         model.addAttribute("categories", categoryService.getAllCategoriesMap());
         return "courses/courses";
@@ -52,7 +52,7 @@ public class CourseController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(@ModelAttribute Course course, Model model) {
         model.addAttribute("categories", categoryService.getAllCategoriesMap());
-        return "courses/edit_course";
+        return "courses/edit-course";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -67,7 +67,7 @@ public class CourseController {
         model.addAttribute("course", course);
         model.addAttribute("categories", categoryService.getAllCategoriesMap());
         model.addAttribute("course_categories", courseService.getCourseCategoriesList(course));
-        return "courses/edit_course";
+        return "courses/edit-course";
     }
 
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)

@@ -16,6 +16,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.lms.model.dao.FileDao;
+import com.lms.model.dict.FileType;
 import com.lms.model.entity.File;
 import com.lms.service.FileService;
 
@@ -30,57 +31,39 @@ public class FileServiceImpl implements FileService {
     private FileDao fileDao;
 
     @Override
-    public String saveImage(MultipartFile file, Long lessonId) {
+    public Long saveFile(MultipartFile file, Long lessonId, FileType type) {
         String uuid = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(file.getOriginalFilename());
-        String filePath = env.getProperty("filesPath") + lessonId + "/images/" + uuid;
+        String path = lessonId + "/" + type + "/" + uuid;
         try {
-            FileCopyUtils.copy(file.getBytes(), new FileOutputStream(filePath));
+            FileCopyUtils.copy(file.getBytes(), new FileOutputStream(env.getProperty("filesPath") + path));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return uuid;
+        File fileToSave = new File();
+        fileToSave.setPath(path);
+        fileToSave.setOriginalName(file.getOriginalFilename());
+        fileToSave.setUuid(uuid);
+        fileToSave.setSize(file.getSize());
+        fileDao.save(fileToSave);
+        return fileToSave.getId();
     }
 
     @Override
-    public void deleteImage(String fileUrl) {
-        String filePath = env.getProperty("filesPath") + fileUrl.substring(fileUrl.indexOf("files") + 6);
-        try {
-            Files.deleteIfExists(Paths.get(filePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public Long saveAudio(MultipartFile file, Long lessonId) {
-        String uuid = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(file.getOriginalFilename());
-        String filePath = env.getProperty("filesPath") + lessonId + "/audio/" + uuid;
-        try {
-            FileCopyUtils.copy(file.getBytes(), new FileOutputStream(filePath));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        File audioFile = new File();
-        audioFile.setLocation(filePath);
-        audioFile.setOriginalName(file.getOriginalFilename());
-        audioFile.setUuid(uuid);
-        fileDao.save(audioFile);
-        return audioFile.getId();
-    }
-
-    @Override
-    public void deleteAudio(Long id) {
+    public void deleteFile(Long id) {
         File file = fileDao.find(id);
         try {
-            Files.deleteIfExists(Paths.get(file.getLocation()));
+            Files.deleteIfExists(Paths.get(env.getProperty("filesPath") + file.getPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
         fileDao.remove(file);
+    }
+
+    @Override
+    public File get(Long id) {
+        return fileDao.find(id);
     }
 
 }

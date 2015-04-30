@@ -43,6 +43,7 @@
         
         <div class="btn-group navbar-right navbar-btn">
           <a class="btn btn-default" href="<@spring.url '/courses/'+course.id />"><span class="glyphicon glyphicon-home"></span>&nbsp;Główna strona kursu</a>
+          <a class="btn btn-default" href=""><span class="glyphicon glyphicon-bookmark"></span>&nbsp;O kursie</a>
           <a class="btn btn-default"><span class="glyphicon glyphicon-calendar"></span>&nbsp;Kalendarz</a>
           <a class="btn btn-default"><span class="glyphicon glyphicon-stats"></span>&nbsp;Oceny</a>
         </div>

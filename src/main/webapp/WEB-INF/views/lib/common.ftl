@@ -83,6 +83,7 @@ $('.multiselect').multiselect({
   <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/font_family.min.js' />" ></script>
   <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/font_size.min.js' />" ></script>
   <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/block_styles.min.js' />" ></script>
+  <script src="<@spring.url '/webjars/FroalaWysiwygEditor/1.2.6/js/plugins/file_upload.min.js' />" ></script>
 </#macro>
 
 <#macro fileUpload>

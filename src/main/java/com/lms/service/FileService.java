@@ -2,12 +2,14 @@ package com.lms.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.lms.model.dict.FileType;
+import com.lms.model.entity.File;
+
 public interface FileService {
-    public String saveImage(MultipartFile file, Long lessonId);
 
-    public void deleteImage(String fileUrl);
+    public Long saveFile(MultipartFile file, Long lessonId, FileType type);
 
-    public Long saveAudio(MultipartFile file, Long lessonId);
+    public void deleteFile(Long id);
 
-    public void deleteAudio(Long id);
+    public File get(Long id);
 }

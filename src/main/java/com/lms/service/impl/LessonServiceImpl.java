@@ -11,6 +11,7 @@ import com.googlecode.genericdao.search.Field;
 import com.googlecode.genericdao.search.Filter;
 import com.googlecode.genericdao.search.Search;
 import com.lms.model.dao.LessonDao;
+import com.lms.model.dict.FileType;
 import com.lms.model.entity.Lesson;
 import com.lms.service.LessonService;
 
@@ -48,9 +49,9 @@ public class LessonServiceImpl implements LessonService {
         File dir = new File(env.getProperty("filesPath") + id);
         if (!dir.exists()) {
             dir.mkdir();
-            new File(env.getProperty("filesPath") + id + "/images").mkdir();
-            new File(env.getProperty("filesPath") + id + "/audio").mkdir();
-            new File(env.getProperty("filesPath") + id + "/others").mkdir();
+            for (FileType type : FileType.values()) {
+                new File(env.getProperty("filesPath") + id + "/" + type).mkdir();
+            }
         }
     }
 

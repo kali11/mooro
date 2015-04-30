@@ -69,6 +69,10 @@
         $("#element-details").html(<@common.jsStr><@elements.editElementAudio lessonId /></@>);
         $("#elementType").val(type);
       break;
+      case 'file':
+        $("#element-details").html(<@common.jsStr><@elements.editElementFile lessonId /></@>);
+        $("#elementType").val(type);
+      break;
     }
   })
 </script>

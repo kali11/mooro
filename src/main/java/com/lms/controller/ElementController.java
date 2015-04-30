@@ -54,8 +54,7 @@ public class ElementController {
             elementType = "video";
         } else if (element instanceof ElementAudio) {
             ElementAudio elementAudio = (ElementAudio) element;
-            model.addAttribute("filePath", request.getContextPath() + "/files/" + element.getLesson().getId()
-                    + "/audio/" + elementAudio.getFile().getUuid());
+            model.addAttribute("filePath", request.getContextPath() + "/files/" + elementAudio.getFile().getId());
             elementType = "audio";
         }
         model.addAttribute("elementType", elementType);
