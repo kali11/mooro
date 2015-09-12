@@ -14,7 +14,7 @@
                   ${course.title}
                 </div>
                 <div class="panel-body">
-                  <p>${course.description}</p>
+                  <p>${course.description!}</p>
                   <a class="btn btn-info" href="<@spring.url '/courses/' />${course.id}"><span class="glyphicon glyphicon-upload"></span>&nbsp;Wejdź</a>
                 </div>
               </div>

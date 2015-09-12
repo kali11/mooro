@@ -2,6 +2,8 @@ package com.lms.service.impl;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.lms.model.dict.ElementType;
+import com.lms.model.entity.ElementFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ import com.lms.model.entity.ElementText;
 import com.lms.model.entity.ElementVideo;
 import com.lms.model.entity.File;
 import com.lms.service.ElementService;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Service
 @Transactional
@@ -43,15 +48,21 @@ public class ElementServiceImpl implements ElementService {
 
     @Override
     public void save(Element element, String elementType, HttpServletRequest request) {
-        switch (elementType) {
-        case "text":
+        switch (ElementType.valueOf(elementType.toUpperCase())) {
+        case TEXT:
             saveText(element, request);
             break;
-        case "video":
+        case VIDEO:
             saveVideo(element, request);
             break;
-        case "audio":
+        case AUDIO:
             saveAudio(element, request);
+            break;
+        case TEST:
+            // TODO
+            break;
+        case FILE:
+            saveFile(element, request);
             break;
         }
     }
@@ -80,10 +91,16 @@ public class ElementServiceImpl implements ElementService {
 
     private void saveAudio(Element element, HttpServletRequest request) {
         ElementAudio elementAudio = new ElementAudio(element);
-        elementAudio.setDescription(request.getParameter("description"));
         File file = fileDao.find(Long.valueOf(request.getParameter("fileId")));
-        elementAudio.setFile(file);
+        elementAudio.setFiles(Arrays.asList(file));
+        elementAudio.setDescription(request.getParameter("description"));
         saveElement(elementAudio);
+    }
+
+    private void saveFile(Element element, HttpServletRequest request) {
+        ElementFile elementFile = new ElementFile(element);
+        elementFile.setText(request.getParameter("text"));
+        saveElement(elementFile);
     }
 
     private Long saveElement(Element element) {
@@ -92,6 +109,9 @@ public class ElementServiceImpl implements ElementService {
         search.addField("orderSeq", Field.OP_MAX);
         Long higherOrder = (Long) elementDao.searchUnique(search);
         element.setOrderSeq(higherOrder != null ? ++higherOrder : 1);
+        for(File f : element.getFiles()) {
+            f.setElement(element);
+        }
         elementDao.save(element);
         return element.getId();
     }

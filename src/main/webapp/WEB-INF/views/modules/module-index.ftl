@@ -34,7 +34,7 @@
         </div>
     </div>
   </div>
-  <script src="<@spring.url '/resources/scripts/jquery.plainoverlay.min.js' />" ></script>
+    <@common.overlay />
   <script>
   $("#collapse${activeLessonId!}").addClass('in');
   var editElement = function(lessonId){
@@ -69,4 +69,4 @@
   });
 
   </script>
-</@common.page> 
+</@common.page>

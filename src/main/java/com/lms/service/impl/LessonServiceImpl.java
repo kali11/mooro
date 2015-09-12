@@ -1,7 +1,5 @@
 package com.lms.service.impl;
 
-import java.io.File;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -11,7 +9,6 @@ import com.googlecode.genericdao.search.Field;
 import com.googlecode.genericdao.search.Filter;
 import com.googlecode.genericdao.search.Search;
 import com.lms.model.dao.LessonDao;
-import com.lms.model.dict.FileType;
 import com.lms.model.entity.Lesson;
 import com.lms.service.LessonService;
 
@@ -36,7 +33,6 @@ public class LessonServiceImpl implements LessonService {
         }
         lessonDao.save(lesson);
         Long lessonId = lesson.getId();
-        createLessonDirectories(lessonId);
         return lessonId;
     }
 
@@ -44,15 +40,4 @@ public class LessonServiceImpl implements LessonService {
     public Lesson get(Long id) {
         return lessonDao.find(id);
     }
-
-    private void createLessonDirectories(Long id) {
-        File dir = new File(env.getProperty("filesPath") + id);
-        if (!dir.exists()) {
-            dir.mkdir();
-            for (FileType type : FileType.values()) {
-                new File(env.getProperty("filesPath") + id + "/" + type).mkdir();
-            }
-        }
-    }
-
 }

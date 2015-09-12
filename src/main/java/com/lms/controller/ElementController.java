@@ -2,6 +2,8 @@ package com.lms.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.lms.model.dict.ElementType;
+import com.lms.model.entity.ElementFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,15 +49,16 @@ public class ElementController {
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public String ajaxDisplay(@PathVariable Long id, Model model, HttpServletRequest request) {
         Element element = elementService.get(id);
-        String elementType = "";
+        ElementType elementType = null;
         if (element instanceof ElementText) {
-            elementType = "text";
+            elementType = ElementType.TEXT;
         } else if (element instanceof ElementVideo) {
-            elementType = "video";
+            elementType = ElementType.VIDEO;
         } else if (element instanceof ElementAudio) {
-            ElementAudio elementAudio = (ElementAudio) element;
-            model.addAttribute("filePath", request.getContextPath() + "/files/" + elementAudio.getFile().getId());
-            elementType = "audio";
+            model.addAttribute("filePath", request.getContextPath() + "/files/" + element.getFiles().get(0).getId());
+            elementType = ElementType.AUDIO;
+        } else if (element instanceof ElementFile) {
+            elementType = ElementType.FILE;
         }
         model.addAttribute("elementType", elementType);
         model.addAttribute("element", element);

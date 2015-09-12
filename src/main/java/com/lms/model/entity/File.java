@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -35,8 +37,9 @@ public class File {
     @Column(name = "size", nullable = false)
     private Long size;
 
-    @OneToOne(mappedBy = "file")
-    private ElementAudio elementAudio;
+    @ManyToOne
+    @JoinColumn(name = "element", nullable = true)
+    private Element element;
 
     @OneToOne(mappedBy = "thumbnail")
     private Course course;
@@ -81,12 +84,12 @@ public class File {
         this.size = size;
     }
 
-    public ElementAudio getElementAudio() {
-        return elementAudio;
+    public Element getElement() {
+        return element;
     }
 
-    public void setElementAudio(ElementAudio elementAudio) {
-        this.elementAudio = elementAudio;
+    public void setElement(Element element) {
+        this.element = element;
     }
 
     public Course getCourse() {

@@ -10,7 +10,7 @@ public interface CourseService {
 
     public Long save(Course course);
 
-    public Long save(Course course, List<String> categoryId);
+    public Long save(Course course, List<String> categoryId, Long fileId);
 
     public Course get(Long id);
 

@@ -9,4 +9,7 @@
   <#case 'audio'>
     <@elements.elementAudio element />
   <#break>
+    <#case 'file'>
+      <@elements.elementFile element />
+        <#break>
 </#switch>

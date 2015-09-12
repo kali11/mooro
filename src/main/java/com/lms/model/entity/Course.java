@@ -54,7 +54,7 @@ public class Course implements Serializable {
     private String syllabus;
 
     @OneToOne
-    @JoinColumn(name = "file")
+    @JoinColumn(name = "thumbnail")
     private File thumbnail;
 
     @Column(name = "active", nullable = false)

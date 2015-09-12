@@ -1,4 +1,4 @@
-<#import "/lib/elements.ftl" as elements>
+<#import "/lib/elements.ftl" as elements />
 <form role="form" action="<@spring.url '/elements/save?lessonId=' + lessonId />" method="POST">
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
   <input type="hidden" name="elementType" id="elementType" value="" />
@@ -58,7 +58,7 @@
     type = $(this).attr("name");
     switch(type) {
       case 'text':
-        $("#element-details").html(<@common.jsStr><@elements.editElementText lessonId /></@>);
+        $("#element-details").html(<@common.jsStr><@elements.editElementText /></@>);
         $("#elementType").val(type);
       break;
       case 'video':
@@ -66,11 +66,11 @@
         $("#elementType").val(type);
       break;
       case 'audio':
-        $("#element-details").html(<@common.jsStr><@elements.editElementAudio lessonId /></@>);
+        $("#element-details").html(<@common.jsStr><@elements.editElementAudio /></@>);
         $("#elementType").val(type);
       break;
       case 'file':
-        $("#element-details").html(<@common.jsStr><@elements.editElementFile lessonId /></@>);
+        $("#element-details").html(<@common.jsStr><@elements.editElementFile /></@>);
         $("#elementType").val(type);
       break;
     }

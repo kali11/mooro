@@ -1,10 +1,8 @@
 package com.lms.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.lms.model.dict.FileType;
+import com.lms.model.entity.File;
+import com.lms.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
@@ -21,9 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lms.model.dict.FileType;
-import com.lms.model.entity.File;
-import com.lms.service.FileService;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/files")
@@ -45,16 +43,18 @@ public class FileController {
 
         String location = env.getProperty("filesPath") + file.getPath();
         FileSystemResource resource = new FileSystemResource(new java.io.File(location));
-        return new ResponseEntity<FileSystemResource>(resource, respHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(resource, respHeaders, HttpStatus.OK);
     }
 
     // TODO: ograniczyć wielkosc przesłanych plików oraz rozszerzenia
     @RequestMapping(value = "/upload/image", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> ajaxUploadImage(@RequestParam("file") MultipartFile file,
-            @RequestParam("lessonId") Long lessonId, HttpServletRequest request) {
-        Long fileId = fileService.saveFile(file, lessonId, FileType.IMAGE);
+            @RequestParam(value = "oldFileId", required = false) Long oldFileId, HttpServletRequest request) {
+        Long fileId = fileService.saveFile(file, FileType.IMAGE);
         Map<String, Object> jsonResult = new HashMap<>();
         jsonResult.put("link", request.getContextPath() + "/files/" + fileId);
+        jsonResult.put("fileName", file.getOriginalFilename());
+        jsonResult.put("fileId", fileId);
         return jsonResult;
     }
 
@@ -67,13 +67,22 @@ public class FileController {
 
     @RequestMapping(value = "/upload/audio", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> ajaxUploadAudio(@RequestParam("file") MultipartFile file,
-            @RequestParam("lessonId") Long lessonId, @RequestParam(value = "oldFileId", required = false) Long oldFileId) {
+            @RequestParam(value = "oldFileId", required = false) Long oldFileId) {
         Map<String, Object> jsonResult = new HashMap<>();
         jsonResult.put("fileName", file.getOriginalFilename());
-        jsonResult.put("fileId", fileService.saveFile(file, lessonId, FileType.AUDIO));
+        jsonResult.put("fileId", fileService.saveFile(file, FileType.AUDIO));
         if (oldFileId != null) {
             fileService.deleteFile(oldFileId);
         }
+        return jsonResult;
+    }
+
+    @RequestMapping(value = "/upload/other", method = RequestMethod.POST)
+    public @ResponseBody Map<String, Object> ajaxUploadOther(@RequestParam("file") MultipartFile file,
+            HttpServletRequest request) {
+        Long fileId = fileService.saveFile(file, FileType.OTHER);
+        Map<String, Object> jsonResult = new HashMap<>();
+        jsonResult.put("link", request.getContextPath() + "/files/" + fileId);
         return jsonResult;
     }
 }

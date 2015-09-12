@@ -1,21 +1,24 @@
 package com.lms.model.entity;
 
-import static javax.persistence.GenerationType.SEQUENCE;
-
-import java.io.Serializable;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.List;
+
+import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "elements")
@@ -37,6 +40,9 @@ public class Element implements Serializable {
 
     @Column(name = "active", nullable = false)
     private Boolean active;
+
+    @OneToMany(mappedBy = "element", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<File> files;
 
     @ManyToOne
     @JoinColumn(name = "lesson", nullable = false)
@@ -83,6 +89,14 @@ public class Element implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
     }
 
     public Lesson getLesson() {

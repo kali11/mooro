@@ -7,7 +7,7 @@ import com.lms.model.entity.File;
 
 public interface FileService {
 
-    public Long saveFile(MultipartFile file, Long lessonId, FileType type);
+    public Long saveFile(MultipartFile file, FileType type);
 
     public void deleteFile(Long id);
 

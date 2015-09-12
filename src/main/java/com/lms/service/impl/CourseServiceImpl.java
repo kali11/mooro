@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.lms.model.dao.FileDao;
+import com.lms.model.entity.File;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,9 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private FileDao fileDao;
+
     @Override
     public List<Course> getAll() {
         Search search = new Search(Course.class);
@@ -51,13 +56,18 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Long save(Course course, List<String> categoryIds) {
+    public Long save(Course course, List<String> categoryIds, Long fileId) {
         Set<Category> categories = new HashSet<>();
         for (String categoryId : categoryIds) {
             Category category = categoryDao.find(Long.parseLong(categoryId));
             categories.add(category);
         }
         course.setCategories(categories);
+        if(fileId != null) {
+            // tu jest getReference, bo inaczej dla tych samych fileId jest blad duplicate id w sesji hibernate
+            File thumbnail = fileDao.getReference(fileId);
+            course.setThumbnail(thumbnail);
+        }
         return save(course);
     }
 
@@ -110,12 +120,7 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getByUserlogin(String login) {
         User user = userDao.getByLogin(login);
         List<Course> courses = new ArrayList<>(user.getSubscribedCourses());
-        Collections.sort(courses, new Comparator<Course>() {
-            @Override
-            public int compare(Course o1, Course o2) {
-                return o1.getTitle().compareTo(o2.getTitle());
-            }
-        });
+        Collections.sort(courses, (c1, c2) -> c1.getTitle().compareTo(c2.getTitle()));
         return courses;
     }
 }

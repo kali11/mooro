@@ -8,7 +8,7 @@
       </div>
       <div class="form-group">
         <label for="description">Opis</label>
-        <@spring.formTextarea 'lesson.description' 'id="description" class="form-control" placeholder="Opis" required' />
+        <@spring.formTextarea 'lesson.description' 'id="description" class="form-control" placeholder="Opis"' />
       </div>
       <div class="form-group">
         <label for="active">Aktywna</label>

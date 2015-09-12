@@ -31,9 +31,9 @@ public class FileServiceImpl implements FileService {
     private FileDao fileDao;
 
     @Override
-    public Long saveFile(MultipartFile file, Long lessonId, FileType type) {
+    public Long saveFile(MultipartFile file, FileType type) {
         String uuid = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(file.getOriginalFilename());
-        String path = lessonId + "/" + type + "/" + uuid;
+        String path = type + "/" + uuid;
         try {
             FileCopyUtils.copy(file.getBytes(), new FileOutputStream(env.getProperty("filesPath") + path));
         } catch (FileNotFoundException e) {

@@ -8,10 +8,12 @@
           <div class="panel panel-primary">
             <div class="panel-heading">Aktualności</div>
             <div class="panel-body">
-              Panel content
+              Już jutro rozpoczynają się zajęcia z Wieloagentowych systemów decyzyjnych!
+              <br />03.03.2013
             </div>
           </div>
         </div>
+
         <div class="col-md-5">
           <div class="panel panel-primary">
             <div class="panel-heading">Moduły</div>

@@ -1,17 +1,16 @@
-<#macro editElementText lessonId>
-<div class="form-group">
-  <label for="text">Tekst:</label>
-  <textarea class="form-control" id="text" name="text" type="text"></textarea>
-  </textarea>
-</div>
-  <script>
+<#macro editElementText>
+    <div class="form-group">
+        <label for="text">Tekst:</label>
+        <textarea class="form-control" id="text" name="text" type="text"></textarea>
+        </textarea>
+    </div>
+    <script>
       $(function() {
           $('#text').editable({
           language: 'pl',
           spellcheck: true,
           minHeight: 200,
           imageUploadURL: "<@spring.url '/files/upload/image?${_csrf.parameterName}=${_csrf.token}' />",
-          imageUploadParams: {lessonId: ${lessonId}},
           imageDeleteURL: "<@spring.url '/files/delete/image?${_csrf.parameterName}=${_csrf.token}' />",
           buttons: ["bold", "italic", "underline", "strikeThrough", "subscript", "superscript", 
           "fontFamily", "fontSize", "color", "formatBlock", "blockStyle", "inlineStyle", "align", 
@@ -27,41 +26,41 @@
             editor.deleteImage($img);
           });
       });
-  </script>
+
+    </script>
 </#macro>
 
 <#macro editElementVideo>
-  <div class="form-group">
-    <label for="description">Opis:</label>
-    <textarea class="form-control" id="description" name="description" type="text"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="src">Link do filmu z portalu YouTube:</label>
-    <input class="form-control" id="src" name="src" type="text" required>
-  </div>
+    <div class="form-group">
+        <label for="description">Opis:</label>
+        <textarea class="form-control" id="description" name="description" type="text"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="src">Link do filmu z portalu YouTube:</label>
+        <input class="form-control" id="src" name="src" type="text" required>
+    </div>
 </#macro>
 
-<#macro editElementAudio lessonId>
-  <div class="form-group">
-    <label for="description">Opis:</label>
-    <textarea class="form-control" id="description" name="description" type="text"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="audio-upload">Plik audio (.mp3, .ogg lub .wav):</label><br />
+<#macro editElementAudio>
+    <div class="form-group">
+        <label for="description">Opis:</label>
+        <textarea class="form-control" id="description" name="description" type="text"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="audio-upload">Plik audio (.mp3, .ogg lub .wav):</label><br/>
     <span name="audio-upload" id="audio-upload" class="btn btn-info fileinput-button">
       <span class="glyphicon glyphicon-upload"></span>&nbsp;Dodaj plik
       <input id="fileupload" type="file" name="file" accept="audio/*">
     </span><span id="filename"></span>
-  </div>
-  <div class="form-group">
-    <div id="upload-progress"></div>
-    <span id="upload-progress-text"></span>
-  </div>
-  <input id="fileId" type="hidden" name="fileId" />
-  <script>
+    </div>
+    <div class="form-group">
+        <div id="upload-progress"></div>
+        <span id="upload-progress-text"></span>
+    </div>
+    <input id="fileId" type="hidden" name="fileId"/>
+    <script>
     $('#fileupload').fileupload({
       url: "<@spring.url '/files/upload/audio?${_csrf.parameterName}=${_csrf.token}' />",
-      formData: {lessonId: ${lessonId}},
       acceptFileTypes: /(\.|\/)(mp3|ogg|wav)$/i,
       
       send: function(e, data) {
@@ -76,31 +75,30 @@
         $('#fileupload').fileupload(
           'option',
           'formData',
-          {lessonId: ${lessonId}, oldFileId: data.result.fileId}
+          {oldFileId: data.result.fileId}
         );
       },
       fail: function(e, data) {
         $("#filename").text("Wysyłanie nie powiodło się!");
       }
     });
-  </script>
+
+    </script>
 </#macro>
 
-<#macro editElementFile lessonId>
-<div class="form-group">
-  <label for="text">Tekst (Aby dodać plik naciśnik ikonę agrafki):</label>
-  <textarea class="form-control" id="text" name="text" type="text"></textarea>
-  </textarea>
-</div>
-  <script>
+<#macro editElementFile>
+    <div class="form-group">
+        <label for="text">Tekst (Aby dodać plik naciśnik ikonę agrafki):</label>
+        <textarea class="form-control" id="text" name="text" type="text"></textarea>
+        </textarea>
+    </div>
+    <script>
       $(function() {
           $('#text').editable({
           language: 'pl',
           spellcheck: true,
           minHeight: 200,
-          //imageUploadURL: "<@spring.url '/files/upload/image?${_csrf.parameterName}=${_csrf.token}' />",
-          //imageUploadParams: {lessonId: ${lessonId}},
-          //imageDeleteURL: "<@spring.url '/files/delete/image?${_csrf.parameterName}=${_csrf.token}' />",
+          fileUploadURL: "<@spring.url '/files/upload/other?${_csrf.parameterName}=${_csrf.token}' />",
           buttons: ["bold", "italic", "underline", "insertOrderedList", "insertUnorderedList",
           "insertHorizontalRule", "undo", "redo", "sep", "uploadFile"],
           inlineMode: false
@@ -112,38 +110,51 @@
             editor.deleteImage(img);
           });
       });
-  </script>
+
+    </script>
 </#macro>
 
 <#macro modifyElement element>
-<div class="btn-group">
-  <a data-href="<@spring.url '/elements/delete/'+element.id />" class="btn btn-danger confirm" data-placement="bottom" data-title="Czy na pewno?" data-btnOkLabel="Usuń" data-btnCancelLabel="Anuluj"><span class="glyphicon glyphicon-remove"></span>&nbsp;Usuń element</a>
-  <a href="<@spring.url '/elements/edit/'+element.id />" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edytuj element</a>
-</div>
-  <hr />
-  <@common.confirmation />
+    <div class="btn-group">
+        <a data-href="<@spring.url '/elements/delete/'+element.id />" class="btn btn-danger confirm"
+           data-placement="bottom" data-title="Czy na pewno?" data-btnOkLabel="Usuń" data-btnCancelLabel="Anuluj"><span
+                class="glyphicon glyphicon-remove"></span>&nbsp;Usuń element</a>
+        <a href="<@spring.url '/elements/edit/'+element.id />" class="btn btn-warning"><span
+                class="glyphicon glyphicon-edit"></span>&nbsp;Edytuj element</a>
+    </div>
+    <hr/>
+    <@common.confirmation />
 </#macro>
 
 <#macro elementText element>
-  <@modifyElement element />
-  ${element.text}
-  <script>
+    <@modifyElement element />
+    ${element.text}
+    <script>
   $(function(){
     $("table").attr("border", "1");
   });
-  </script>
+
+    </script>
 </#macro>
 
 <#macro elementVideo element>
-  <@modifyElement element />
-  <iframe style="display:block; margin:auto;" width="640" height="360" src="${element.src}" frameborder="0" allowfullscreen=""></iframe>
-  <p>${element.description}</p>
+    <@modifyElement element />
+    <iframe style="display:block; margin:auto;" width="640" height="360" src="${element.src}" frameborder="0"
+            allowfullscreen=""></iframe>
+    <br/>
+
+    <p>${element.description}</p>
 </#macro>
 
 <#macro elementAudio element>
-  <@modifyElement element />
-  <audio controls>
-    <source src="${filePath}">
-  </audio>
-  <p>${element.description}</p>
+    <@modifyElement element />
+    <audio controls>
+        <source src="${filePath}">
+    </audio>
+    <p>${element.description}</p>
+</#macro>
+
+<#macro elementFile element>
+    <@modifyElement element />
+    ${element.text}
 </#macro>

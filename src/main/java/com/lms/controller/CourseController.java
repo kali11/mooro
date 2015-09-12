@@ -1,9 +1,8 @@
 package com.lms.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.lms.model.entity.Course;
+import com.lms.service.CategoryService;
+import com.lms.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,10 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.lms.model.entity.Course;
-import com.lms.service.CategoryService;
-import com.lms.service.CourseService;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/courses")
@@ -49,6 +50,7 @@ public class CourseController {
         return "courses/course-index";
     }
 
+    @Deprecated
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(@ModelAttribute Course course, Model model) {
         model.addAttribute("categories", categoryService.getAllCategoriesMap());
@@ -56,8 +58,9 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute Course course, @RequestParam("categoryIds") List<String> categoryId, Model model) {
-        Long courseId = courseService.save(course, categoryId);
+    public String save(@ModelAttribute Course course, @RequestParam(value = "fileId", required = false) Long fileId,
+            @RequestParam("categoryIds") List<String> categoryId, Model model) {
+        Long courseId = courseService.save(course, categoryId, fileId);
         return "redirect:/courses/" + courseId;
     }
 

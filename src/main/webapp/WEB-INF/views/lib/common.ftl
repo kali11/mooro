@@ -16,15 +16,13 @@
     <div id="navigation" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Platforma E-learningowa</a>
+          <a class="navbar-brand" href="#">Platforma E-learningowa MOOC</a>
         </div>
         <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="<@spring.url '/courses'/>">Kursy</a></li>
+          </ul>
+
           <#if userlogin??>
             <form class="navbar-form navbar-right" method="POST" action="<@spring.url '/logout'/>">
               <div class="btn-group">
@@ -92,6 +90,10 @@ $('.multiselect').multiselect({
   <script src="<@spring.url '/webjars/blueimp-file-upload/9.9.3/js/jquery.iframe-transport.js' />" ></script>
   <script src="<@spring.url '/webjars/blueimp-file-upload/9.9.3/js/jquery.fileupload-process.js' />" ></script>
   <script src="<@spring.url '/webjars/blueimp-file-upload/9.9.3/js/jquery.fileupload-validate.js' />" ></script>  
+</#macro>
+
+<#macro overlay>
+  <script src="<@spring.url '/resources/scripts/jquery.plainoverlay.min.js' />" ></script>
 </#macro>
 
 <#macro breadcrumb note="Jesteś w:">
