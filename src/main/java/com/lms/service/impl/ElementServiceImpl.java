@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.lms.model.dict.ElementType;
 import com.lms.model.entity.ElementFile;
+import com.lms.model.entity.ElementTest;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ import com.lms.service.ElementService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 @Transactional
@@ -47,6 +50,17 @@ public class ElementServiceImpl implements ElementService {
     }
 
     @Override
+    public ElementTest getWithQuestions(Long id){
+        Element element = elementDao.find(id);
+        if (element instanceof ElementTest) {
+            ElementTest elementTest = (ElementTest) element;
+            Hibernate.initialize(elementTest.getTestQuestions());
+            return elementTest;
+        }
+        return null;
+    }
+
+    @Override
     public void save(Element element, String elementType, HttpServletRequest request) {
         switch (ElementType.valueOf(elementType.toUpperCase())) {
         case TEXT:
@@ -59,7 +73,7 @@ public class ElementServiceImpl implements ElementService {
             saveAudio(element, request);
             break;
         case TEST:
-            // TODO
+            saveTest(element, request);
             break;
         case FILE:
             saveFile(element, request);
@@ -103,14 +117,23 @@ public class ElementServiceImpl implements ElementService {
         saveElement(elementFile);
     }
 
+    private void saveTest(Element element, HttpServletRequest request) {
+        ElementTest elementTest = new ElementTest(element);
+        elementTest.setDescription(request.getParameter("description"));
+        saveElement(elementTest);
+    }
+
     private Long saveElement(Element element) {
         Search search = new Search(Element.class);
         search.addFilter(Filter.equal("lesson", element.getLesson()));
         search.addField("orderSeq", Field.OP_MAX);
         Long higherOrder = (Long) elementDao.searchUnique(search);
         element.setOrderSeq(higherOrder != null ? ++higherOrder : 1);
-        for(File f : element.getFiles()) {
-            f.setElement(element);
+        List<File> elementFiles = element.getFiles();
+        if (elementFiles != null) {
+            for (File f : element.getFiles()) {
+                f.setElement(element);
+            }
         }
         elementDao.save(element);
         return element.getId();

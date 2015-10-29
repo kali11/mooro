@@ -1,5 +1,8 @@
 package com.lms.model.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import static javax.persistence.GenerationType.SEQUENCE;
 
 import java.io.Serializable;
@@ -44,7 +47,11 @@ public class Lesson implements Serializable {
     private Module module;
 
     @OneToMany(mappedBy = "lesson", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Element> elements;
+
+    @Column(name = "preds", nullable = true)
+    private String preds;
 
     public Long getId() {
         return id;
@@ -103,4 +110,11 @@ public class Lesson implements Serializable {
         this.elements = elements;
     }
 
+    public String getPreds() {
+        return preds;
+    }
+
+    public void setPreds(String preds) {
+        this.preds = preds;
+    }
 }

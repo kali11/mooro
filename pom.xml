@@ -15,8 +15,14 @@
     <junit.version>4.11</junit.version>
     <hibernate.version>4.3.6.Final</hibernate.version>
     <postgres.version>9.3-1102-jdbc41</postgres.version>
+    <jayes.version>2.2.2-SNAPSHOT</jayes.version>
   </properties>
-
+  <repositories>
+    <repository>
+      <id>recommenders</id>
+      <url>https://repo.eclipse.org/content/repositories/recommenders/</url>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -86,7 +92,13 @@
       <artifactId>jackson-databind</artifactId>
       <version>2.5.2</version>
     </dependency>
-    
+
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>1.9.13</version>
+    </dependency>
+
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
@@ -145,7 +157,7 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-dbcp2</artifactId>
       <version>2.0</version>
-</dependency>
+    </dependency>
     
     <!-- webjars dependencies -->
     <dependency>
@@ -176,6 +188,23 @@
       <groupId>org.webjars.bower</groupId>
       <artifactId>blueimp-file-upload</artifactId>
       <version>9.9.3</version>
+    </dependency>
+
+    <!-- jayes -->
+    <dependency>
+      <groupId>org.eclipse.recommenders</groupId>
+      <artifactId>org.eclipse.recommenders.jayes</artifactId>
+      <version>${jayes.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.recommenders</groupId>
+      <artifactId>org.eclipse.recommenders.jayes.io</artifactId>
+      <version>${jayes.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.recommenders</groupId>
+      <artifactId>org.eclipse.recommenders.jayes.transformation</artifactId>
+      <version>${jayes.version}</version>
     </dependency>
 
   </dependencies>

@@ -15,7 +15,7 @@
     <button name="text" type="button" class="btn btn-lg element-type"><span class="glyphicon glyphicon-font" aria-hidden="true"></span></button>
     <button name="video" type="button" class="btn btn-lg element-type"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span></button>
     <button name="audio" type="button" class="btn btn-lg element-type"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>
-    <button name="quiz" type="button" class="btn btn-lg element-type"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+    <button name="test" type="button" class="btn btn-lg element-type"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
     <button name="file" type="button" class="btn btn-lg element-type"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></button>
     &nbsp;<span id="display-text"></span>
   </div>
@@ -34,8 +34,8 @@
       case 'text':
         displayText = "Tekst z obrazkami";
       break;
-      case 'quiz':
-        displayText = "Quiz";
+      case 'test':
+        displayText = "Test";
       break;
       case 'video':
         displayText = "Film z YouTube";
@@ -71,6 +71,10 @@
       break;
       case 'file':
         $("#element-details").html(<@common.jsStr><@elements.editElementFile /></@>);
+        $("#elementType").val(type);
+      break;
+      case 'test':
+        $("#element-details").html(<@common.jsStr><@elements.editElementTest /></@>);
         $("#elementType").val(type);
       break;
     }

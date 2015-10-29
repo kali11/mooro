@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.lms.model.dict.ElementType;
 import com.lms.model.entity.ElementFile;
+import com.lms.model.entity.ElementTest;
+import com.lms.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,9 @@ public class ElementController {
 
     @Autowired
     private ElementService elementService;
+
+    @Autowired
+    private TestService testService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String ajaxAdd(@ModelAttribute Element element, @RequestParam("lessonId") Long lessonId, Model model) {
@@ -59,6 +64,10 @@ public class ElementController {
             elementType = ElementType.AUDIO;
         } else if (element instanceof ElementFile) {
             elementType = ElementType.FILE;
+        } else if (element instanceof ElementTest) {
+            elementType = ElementType.TEST;
+            String userLoing = (String) request.getSession().getAttribute("userlogin");
+            model.addAttribute("testQuestions", testService.getTestQuestions((ElementTest) element, userLoing));
         }
         model.addAttribute("elementType", elementType);
         model.addAttribute("element", element);

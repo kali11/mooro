@@ -114,19 +114,30 @@
     </script>
 </#macro>
 
+<#macro editElementTest>
+    <div class="form-group">
+        <label for="description">Opis:</label>
+        <textarea class="form-control" id="description" name="description" type="text"></textarea>
+    </div>
+</#macro>
+
 <#macro modifyElement element>
     <div class="btn-group">
         <a data-href="<@spring.url '/elements/delete/'+element.id />" class="btn btn-danger confirm"
            data-placement="bottom" data-title="Czy na pewno?" data-btnOkLabel="Usuń" data-btnCancelLabel="Anuluj"><span
                 class="glyphicon glyphicon-remove"></span>&nbsp;Usuń element</a>
-        <a href="<@spring.url '/elements/edit/'+element.id />" class="btn btn-warning"><span
-                class="glyphicon glyphicon-edit"></span>&nbsp;Edytuj element</a>
+        <#if elementType == 'test'>
+            <a href="<@spring.url '/tests/edit/'+element.id />" class="btn btn-warning"><span
+                    class="glyphicon glyphicon-edit"></span>&nbsp;Edytuj element</a>
+            <#else>
+                <a class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edytuj element</a>
+        </#if>
     </div>
     <hr/>
     <@common.confirmation />
 </#macro>
 
-<#macro elementText element>
+<#macro displayElementText element>
     <@modifyElement element />
     ${element.text}
     <script>
@@ -137,7 +148,7 @@
     </script>
 </#macro>
 
-<#macro elementVideo element>
+<#macro displayElementVideo element>
     <@modifyElement element />
     <iframe style="display:block; margin:auto;" width="640" height="360" src="${element.src}" frameborder="0"
             allowfullscreen=""></iframe>
@@ -146,7 +157,7 @@
     <p>${element.description}</p>
 </#macro>
 
-<#macro elementAudio element>
+<#macro displayElementAudio element>
     <@modifyElement element />
     <audio controls>
         <source src="${filePath}">
@@ -154,7 +165,73 @@
     <p>${element.description}</p>
 </#macro>
 
-<#macro elementFile element>
+<#macro displayElementFile element>
     <@modifyElement element />
     ${element.text}
+</#macro>
+
+<#macro displayElementTest element>
+    <@modifyElement element />
+    <p>${element.description}</p>
+    <#list testQuestions as question>
+        <div class="test-question" id="test-question-${question.id}">
+            <h3>${question.orderSeq}.&nbsp;${question.question}</h3>
+            <#if question.questionType == "single">
+                <#list question.testAnswers as answer>
+                    <div class="radio">
+                        <label><input type="radio" name="${question.question}" value="${answer.id}">${answer.answer}</label>
+                    </div>
+                </#list>
+                <#elseif question.questionType == "multi">
+                    <#list question.testAnswers as answer>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="${answer.id}">${answer.answer}</label>
+                        </div>
+                    </#list>
+                    <#elseif question.questionType == "open">
+                        <label>Odpowiedź:</label>
+                        <textarea class="form-control"></textarea>
+            </#if>
+            <button type="button" class="btn btn-info" onclick="checkQuestion(${question.id}, '${question.questionType}')">Sprawdź</button>
+            <span class="score">Wynik:</span>
+        </div>
+    </#list>
+    <script>
+        var checkQuestion = function(id, type){
+            var question = $("#test-question-" + id);
+            switch(type){
+                case 'single':
+                    var responseData = {
+                        userResponse: question.find("input[type='radio']:checked").val()
+                    }
+                break;
+                case 'multi':
+                    var responses = [];
+                    question.find("input[type='checkbox']:checked").each(function(){
+                            responses.push($(this).val());
+                        })
+                    var responseData = {
+                        userResponse: responses
+                    }
+                break;
+                case 'open':
+                    var responseData = {
+                        userResponse: question.find("textarea").val()
+                    }
+                break;
+            }
+            console.log(responseData);
+            responseData.questionId = id;
+            $.ajax({
+              type: "POST",
+              url: "<@spring.url '/tests/check' />?${_csrf.parameterName}=${_csrf.token}",
+              contentType: "application/json",
+              data: JSON.stringify(responseData),
+              success: function(response) {
+                console.log(response.score);
+                question.find(".score").html("Wynik: " + response.score);
+              }
+            });
+        }
+    </script>
 </#macro>

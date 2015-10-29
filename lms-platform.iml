@@ -34,6 +34,8 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.5.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.5.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" level="project" />
     <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.3.1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:4.3.6.Final" level="project" />
@@ -62,10 +64,13 @@
     <orderEntry type="library" name="Maven: org.webjars:jquery:2.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:font-awesome:4.3.0-1" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bower:FroalaWysiwygEditor:1.2.6" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars.bower:jquery:2.1.3" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:jquery:2.1.4" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bower:blueimp-file-upload:9.9.3" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bower:blueimp-tmpl:2.5.4" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bower:blueimp-load-image:1.13.0" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bower:blueimp-canvas-to-blob:2.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.recommenders:org.eclipse.recommenders.jayes:2.2.2-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.recommenders:org.eclipse.recommenders.jayes.io:2.2.2-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.recommenders:org.eclipse.recommenders.jayes.transformation:2.2.2-SNAPSHOT" level="project" />
   </component>
 </module>

@@ -12,6 +12,8 @@ import com.lms.model.dao.LessonDao;
 import com.lms.model.entity.Lesson;
 import com.lms.service.LessonService;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class LessonServiceImpl implements LessonService {
@@ -39,5 +41,19 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public Lesson get(Long id) {
         return lessonDao.find(id);
+    }
+
+    @Override public List<Lesson> getAll() {
+        return lessonDao.findAll();
+    }
+
+    @Override
+    public Lesson getParent(Long id) {
+        Lesson lesson = lessonDao.find(id);
+        String pred = lesson.getPreds();
+        if (pred != null) {
+            return lessonDao.find(Long.valueOf(pred));
+        }
+        return null;
     }
 }

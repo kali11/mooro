@@ -26,7 +26,7 @@
                         <div class="modules-edit">
                           <a class="btn btn-xs btn-success"><span class="glyphicon glyphicon-arrow-up"></span></a>
                           <a class="btn btn-xs btn-success"><span class="glyphicon glyphicon-arrow-down"></span></a>
-                          <a class="btn btn-xs btn-info" href="<@spring.url '/modules/edit/'+lesson.id+'?moduleId='+module.id />"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edytuj</a>
+                          <a class="btn btn-xs btn-info" href="<@spring.url '/lessons/edit/'+lesson.id />"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edytuj</a>
                           <a class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;Usuń</a>
                         </div>
                       </div>

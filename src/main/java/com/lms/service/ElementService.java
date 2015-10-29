@@ -3,12 +3,15 @@ package com.lms.service;
 import javax.servlet.http.HttpServletRequest;
 
 import com.lms.model.entity.Element;
+import com.lms.model.entity.ElementTest;
 
 public interface ElementService {
 
-    public Element get(Long id);
+    Element get(Long id);
 
-    public void save(Element element, String elementType, HttpServletRequest request);
+    ElementTest getWithQuestions(Long id);
 
-    public void delete(Element element);
+    void save(Element element, String elementType, HttpServletRequest request);
+
+    void delete(Element element);
 }
