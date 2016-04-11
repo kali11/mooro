@@ -1,2 +1,1 @@
-# mgr
-Moja magisterka!
+mooro
